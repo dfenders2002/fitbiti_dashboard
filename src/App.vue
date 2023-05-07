@@ -12,7 +12,7 @@ import { ref } from 'vue';
 import SideBar from './components/SideBar.vue';
 
 const users = ref([
-  { id: 1, name: 'Jahir de Paus', age: 69, height: 160, weight: 69 },
+  { id: 1, name: 'George Junior', age: 23, height: 175, weight: 69 },
   { id: 2, name: 'Emma Johnson', age: 28, height: 175, weight: 62 },
   { id: 3, name: 'Liam Brown', age: 41, height: 188, weight: 90 },
   { id: 4, name: 'Ava Davis', age: 36, height: 163, weight: 55 },
