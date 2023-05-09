@@ -33,6 +33,9 @@
       <button class="sidebar-logout-button">Log Out</button>
     </div>
   </div>
+
+  <router-view @login="isLoggedIn = $event" />
+  
 </template>
 
 <script lang="ts">
