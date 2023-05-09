@@ -34,7 +34,7 @@
     </div>
   </div>
 
-  <router-view @login="isLoggedIn = $event" />
+  
   
 </template>
 
