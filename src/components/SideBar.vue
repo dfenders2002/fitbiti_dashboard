@@ -2,40 +2,61 @@
   <div class="sidebar">
     <h1 class="sidebar-title">FITBIT</h1>
     <ul class="sidebar-menu">
-      <li :class="{'active': activeItem === 'users'}" @click="activeItem = 'users'">
+      <li :class="{'active': activeItem === 'users'}" @click="activeItem = 'users'" v-if="isLoggedIn">
         <span class="sidebar-menu-icon">
           <font-awesome-icon icon="user" />
         </span>
         <span class="sidebar-menu-label">Users</span>
       </li>
-      <li :class="{'active': activeItem === 'addUser'}" @click="activeItem = 'addUser'">
+      <li :class="{'active': activeItem === 'addUser'}" @click="activeItem = 'addUser'" v-if="isLoggedIn">
         <span class="sidebar-menu-icon">
           <font-awesome-icon icon="user-plus" />
         </span>
         <span class="sidebar-menu-label">Add User</span>
       </li>
-      <li :class="{'active': activeItem === 'export'}" @click="activeItem = 'export'">
+      <li :class="{'active': activeItem === 'export'}" @click="activeItem = 'export'" v-if="isLoggedIn">
         <span class="sidebar-menu-icon">
           <font-awesome-icon icon="file-export" />
         </span>
         <span class="sidebar-menu-label">Export data</span>
       </li>
+      <li v-if="isLoggedIn">
+        <router-link to="/logout">Logout</router-link>
+      </li>
+
+      <li v-if="!isLoggedIn">
+        <router-link to="/">Login</router-link>
+      </li>
+      
     </ul>
-    <div class="sidebar-logout">
+    <div class="sidebar-logout" v-if="isLoggedIn">
       <button class="sidebar-logout-button">Log Out</button>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { RouterLink, RouterView } from 'vue-router';
+import { ref } from 'vue';
+
+export default defineComponent({
+  name: 'App',
+  components: {
+    RouterLink,
+    RouterView,
+  },
+  setup() {
+    const isLoggedIn = ref<boolean>(false);
+    const activeItem = ref<string>('users');
     return {
-      activeItem: 'users'
-    }
-  }
-}
+      isLoggedIn,
+      activeItem,
+    };
+  },
+});
 </script>
+
 
 <style scoped>
 .sidebar {

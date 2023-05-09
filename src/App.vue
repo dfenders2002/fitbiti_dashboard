@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <SideBar />
+    <SideBar :isLoggedIn="isLoggedIn" />
     <div class="app-container">
       <router-view :users="users" />
     </div>
@@ -18,7 +18,10 @@ const users = ref([
   { id: 4, name: 'Ava Davis', age: 36, height: 163, weight: 55 },
   // add more users here...
 ]);
+
+const isLoggedIn = ref(false); // initialize to false by default
 </script>
+
 
 
 <style scoped>

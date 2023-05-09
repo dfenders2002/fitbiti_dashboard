@@ -3,10 +3,18 @@ import { createRouter, createWebHistory } from 'vue-router';
 import type { RouteRecordRaw } from 'vue-router';
 import Dashboard from './views/DashBoard.vue';
 import UserList from './views/UserList.vue';
+import Login from './views/Login.vue';
+import Logout from './components/Logout.vue'
+
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
+    name: 'Login',
+    component: Login,
+  },
+  {
+    path: '/dashboard',
     name: 'UserList',
     component: UserList,
   },
@@ -15,6 +23,11 @@ const routes: RouteRecordRaw[] = [
     name: 'Dashboard',
     component: Dashboard,
     props: true,
+  },
+  {
+    path: '/logout',
+    name: 'logout',
+    component: Logout,
   },
 ];
 
