@@ -10,7 +10,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import SideBar from './components/SideBar.vue';
+import { useStore } from './store/store';
 
+const store = useStore();
+const isLoggedIn = ref(store.state.isLoggedIn);
 const users = ref([
   { id: 1, name: 'George Junior', age: 23, height: 175, weight: 69 },
   { id: 2, name: 'Emma Johnson', age: 28, height: 175, weight: 62 },
@@ -18,9 +21,8 @@ const users = ref([
   { id: 4, name: 'Ava Davis', age: 36, height: 163, weight: 55 },
   // add more users here...
 ]);
-
-const isLoggedIn = ref(false); // initialize to false by default
 </script>
+
 
 
 

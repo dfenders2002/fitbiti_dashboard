@@ -1,64 +1,58 @@
 <template>
-    <div class="login">
-      <h1>Login</h1>
-      <form @submit.prevent="login">
-          <input type = "text" placeholder = "Gebruikersnaam" v-model="username" required />
-          <input type = "password" placeholder = "Wachtwoord" v-model="password" required />
-      </form>
-      <button @click="login">Login</button>
-    </div>
-  </template>
-  
-  <script lang="ts">
-  
-  import { defineComponent  } from 'vue';
-  
-  export default defineComponent({
-    data() {
-      return {
-        username: '',
-        password: '',
-        error: '',
-        isLoggedIn: false,
-      };
-    },
-    emits: ['login'],
-    methods: {
-      async login() {
-        try {
-          // Replace this with your authentication logic
-          if (this.username === 'admin' && this.password === 'admin') {
-            // Set the isLoggedIn variable to true to show the logout button
-            this.isLoggedIn = true;
-            // Emit the login event
-            this.$emit('login', this.isLoggedIn);
-            // Redirect to the dashboard or wherever you want to go after login
-            this.$router.push('/dashboard');
-          } else {
-            // Handle login error
-            console.error('Invalid credentials');
-          }
-        } catch (error) {
-          console.error(error);
+  <div class="login">
+    <h1>Login</h1>
+    <form @submit.prevent="login">
+        <input type = "text" placeholder = "Gebruikersnaam" v-model="username" required />
+        <input type = "password" placeholder = "Wachtwoord" v-model="password" required />
+    </form>
+    <button @click="login">Login</button>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { store } from '../store/store';
+
+export default defineComponent({
+  data() {
+    return {
+      username: '',
+      password: '',
+      error: '',
+    };
+  },
+  methods: {
+    async login() {
+      try {
+        // Replace this with your authentication logic
+        if (this.username === 'admin' && this.password === 'admin') {
+          // Set the isLoggedIn variable to true to show the logout button
+          store.commit('login');
+
+          // Redirect to the dashboard or wherever you want to go after login
+          this.$router.push('/dashboard');
+        } else {
+          // Handle login error
+          console.error('Invalid credentials');
         }
+      } catch (error) {
+        console.error(error);
+      }
     },
-    provide() {
-      return {
-        isLoggedIn: this.isLoggedIn,
-      };
-    },
+  },
+});
+</script>
+
   
-  }});
-  
-  </script>
-  
-  <style>
+<style>
   .login {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
+    background-color: #121528;
+    color: white;
   }
   h1 {
     margin-bottom: 1rem;
@@ -88,4 +82,5 @@
     color: red;
     margin-top: 1rem;
   }
+
   </style>

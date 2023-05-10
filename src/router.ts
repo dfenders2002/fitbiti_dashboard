@@ -1,10 +1,13 @@
 // src/router.ts
 import { createRouter, createWebHistory } from 'vue-router';
 import type { RouteRecordRaw } from 'vue-router';
+import { store } from './store/store';
 import Dashboard from './views/DashBoard.vue';
 import UserList from './views/UserList.vue';
 import Login from './views/Login.vue';
 import Logout from './components/Logout.vue'
+import Export from './views/Export.vue'
+import AddUser from './views/AddUser.vue'
 
 
 const routes: RouteRecordRaw[] = [
@@ -29,11 +32,29 @@ const routes: RouteRecordRaw[] = [
     name: 'logout',
     component: Logout,
   },
+  {
+    path: '/export',
+    name: 'export',
+    component: Export,
+  },
+  {
+    path: '/adduser',
+    name: 'adduser',
+    component: AddUser,
+  }
 ];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.name !== 'Login' && !store.state.isLoggedIn) {
+    next({ name: 'Login' });
+  } else {
+    next();
+  }
 });
 
 export default router;
