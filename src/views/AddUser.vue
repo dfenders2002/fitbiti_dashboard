@@ -1,0 +1,77 @@
+<template>
+    <div class="header">
+      <button class="back-button" @click="goToUserList">Go Back</button>
+    </div>
+    <div class="addUser">
+      <h1>Add Fitbit User</h1>
+      <form @submit.prevent="submitForm">
+        <label>
+          Fitbit ID:
+          <input type="text" v-model="fitbitId" />
+        </label>
+        <button type="submit">Add User</button>
+      </form>
+    </div>
+  </template>
+  
+  <script lang="ts">
+  import { defineComponent } from 'vue';
+  
+  export default defineComponent({
+    data() {
+      return {
+        fitbitId: '',
+      };
+    },
+    methods: {
+      submitForm() {
+        // Add logic to submit the form here
+        console.log('Adding Fitbit user...');
+      },
+        goToUserList() {
+            this.$router.push({ name: 'UserList' });
+        },
+    },
+  });
+  </script>
+  
+  <style scoped>
+  .addUser{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #121528;
+    color: white;
+  }
+  h1 {
+    margin-bottom: 1rem;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  input[type="text"] {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: none;
+    margin-left: 0.5rem;
+  }
+  button[type="submit"] {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: none;
+    background-color: #007aff;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  </style>
+  

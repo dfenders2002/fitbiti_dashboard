@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <SideBar />
+    <SideBar :isLoggedIn="isLoggedIn" />
     <div class="app-container">
       <router-view :users="users" />
     </div>
@@ -10,7 +10,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import SideBar from './components/SideBar.vue';
+import { useStore } from './store/store';
 
+const store = useStore();
+const isLoggedIn = ref(store.state.isLoggedIn);
 const users = ref([
   { id: 1, name: 'George Junior', age: 23, height: 175, weight: 69 },
   { id: 2, name: 'Emma Johnson', age: 28, height: 175, weight: 62 },
@@ -19,6 +22,8 @@ const users = ref([
   // add more users here...
 ]);
 </script>
+
+
 
 
 <style scoped>
