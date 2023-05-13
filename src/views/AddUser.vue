@@ -1,7 +1,6 @@
 <template>
-    <div class="header">
-      <button class="back-button" @click="goToUserList">Go Back</button>
-    </div>
+  <side-bar></side-bar>
+  <div class="page">
     <div class="adduser">
       <h1>Add User</h1>
       <form @submit.prevent="submitForm">
@@ -16,13 +15,16 @@
         <button type="submit">Add User</button>
       </form>
     </div>
+  </div>
   </template>
   
   <script lang="ts">
   import { defineComponent } from 'vue';
   import axios from 'axios';
+  import SideBar from '@/components/SideBar.vue';
   
   export default defineComponent({
+  components: { SideBar },
     data() {
       return {
         username: '',
@@ -32,7 +34,6 @@
     methods: {
       async submitForm() {
         try {
-          debugger;
           const response = await axios.post('https://localhost:7034/FitBitAuth/register', {
             username: this.username,
             password: this.password,
@@ -48,20 +49,23 @@
           console.error(error);
         }
       },
-      goToUserList() {
-        this.$router.push({ name: 'UserList' });
-      },
     },
   });
   </script>
   
   <style scoped>
+  .page{
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+  }
   .adduser{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    flex-grow: 2;
+    padding: 2rem;
     background-color: #121528;
     color: white;
   }

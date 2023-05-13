@@ -1,23 +1,25 @@
 <template>
-    <div class="header">
-      <button class="back-button" @click="goToUserList">Go Back</button>
-    </div>
-    <div class="addFitbit">
-      <h1>Add Fitbit User</h1>
-      <form @submit.prevent="submitForm">
-        <label>
-          Fitbit ID:
-          <input type="text" v-model="fitbitId" />
-        </label>
-        <button type="submit">Add Fitbit</button>
-      </form>
+    <side-bar/>
+    <div class = "page">
+      <div class="addFitbit">
+        <h1>Add Fitbit User</h1>
+        <form @submit.prevent="submitForm">
+          <label>
+            Fitbit ID:
+            <input type="text" v-model="fitbitId" />
+          </label>
+          <button type="submit">Add Fitbit</button>
+        </form>
+      </div>
     </div>
   </template>
   
   <script lang="ts">
   import { defineComponent } from 'vue';
+  import SideBar from '@/components/SideBar.vue';
   
   export default defineComponent({
+  components: { SideBar },
     data() {
       return {
         fitbitId: '',
@@ -28,20 +30,23 @@
         // Add logic to submit the form here
         console.log('Adding Fitbit user...');
       },
-        goToUserList() {
-            this.$router.push({ name: 'UserList' });
-        },
     },
   });
   </script>
   
   <style scoped>
+  .page{
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+  }
   .addFitbit{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    flex-grow: 2;
+    padding: 2rem;
     background-color: #121528;
     color: white;
   }

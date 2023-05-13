@@ -1,6 +1,5 @@
 <template>
-  <div class="wrapper">
-    <SideBar :isLoggedIn="isLoggedIn" />
+  <div class="wrapper" :isLoggedIn="isLoggedIn">
     <div class="app-container">
       <router-view :users="users" />
     </div>
@@ -27,67 +26,22 @@ const users = ref([
 
 
 <style scoped>
-  .wrapper {
+.wrapper {
   display: flex;
-}
-
-.sidebar {
-  width: 200px;
-  flex-shrink: 0;
 }
 
 .app-container {
   flex-grow: 1;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   background-color: white;
   width: 100%;
   min-height: calc(100vh - 64px); /* 64px is de hoogte van de AppBar */
 }
-</style>
 
-
-
-
-<style scoped>
-
-/* Media query voor schermen met een maximale breedte van 768px */
 @media screen and (max-width: 768px) {
   .app-container {
     padding: 1rem; /* Verklein de padding van de app-container */
   }
 }
-
-main {
-  background-color:#121528;
-  flex-grow: 1;
-  padding: 2rem;
-}
-.dashboard-heading {
-  color: white;
-  font-size: 32px;
-  padding-bottom: 30px;
-}
-.grid-container-user {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
-}
-
-.grid-container-data {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 20px;
-}
-
-.grid-container-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
-}
-
-.app{
-  margin-left: 200px;
-}
 </style>
-

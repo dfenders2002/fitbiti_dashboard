@@ -1,27 +1,10 @@
 <template>
-  <main>
+  <side-bar/>
+  <div class="main">
     <h1 class="user-list-heading">Gebruikerslijst</h1>
-    <div class="filters">
-      <h2 class="filters-heading">Filters</h2>
-      <div class="filter-item">
-        <label for="search" class="filter-label">Zoek:</label>
-        <input type="text" id="search" class="filter-input" placeholder="Typ hier iets om te zoeken">
-      </div>
-      <div class="filter-item">
-        <label for="disease" class="filter-label">Ziekte:</label>
-        <select id="disease" class="filter-select">
-          <option disabled selected>Kies een ziekte</option>
-          <option>COVID-19</option>
-          <option>Griep</option>
-          <option>Diabetes</option>
-          <option>Kanker</option>
-          <option>Hart- en vaatziekten</option>
-        </select>
-      </div>
-      <div class="filter-item">
-        <label for="disease-filter" class="filter-label">Alleen zieke gebruikers:</label>
-        <input type="checkbox" id="disease-filter" class="filter-checkbox">
-      </div>
+    <div class="search-bar">
+      <label for="search" class="filter-label">Zoek een gebruiker</label>
+      <input type="text" id="search" class="filter-input" placeholder="Typ hier om een gebruiker te zoeken">
     </div>
     <div class="grid-container-users">
       <UserCard
@@ -31,12 +14,13 @@
         @click="goToDashboard(user.id)"
       />
     </div>
-  </main>
+  </div>
 </template>
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import UserCard from '../components/UserCard.vue'
+import SideBar from '@/components/SideBar.vue';
 
 const router = useRouter();
 const users = ref([
@@ -64,23 +48,8 @@ function goToDashboard(userId: number) {
   padding-bottom: 30px;
 }
 
-.filters {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.filters-heading {
-  color: white;
-  font-size: 24px;
-  margin-right: 5rem;
-}
-
-.filter-item {
-  display: flex;
-  align-items: center;
-  margin-right: 5rem;
-  font-size: 22px;
+.search-bar {
+  font-size: 26px;
 }
 
 .filter-label {
@@ -89,20 +58,17 @@ function goToDashboard(userId: number) {
 }
 
 .filter-input{
-  background: white;
-  height: 22px;
+  background: #2d363d;
+  height: 50px;
   padding-left: 10px;
+  width: 500px;
+  margin-bottom: 50px;
+  color: white;
+  font-size: 20px;
 }
-.filter-select {
-  padding: 0.5rem;
-  border-radius: 4px;
-  border: none;
-  outline: none;
-}
-
-.filter-checkbox {
-  height: 22px;
-  width: 18px;
+.filter-input::placeholder {
+  color: white;
+  font-size: 20px;
 }
 
 .grid-container-users {

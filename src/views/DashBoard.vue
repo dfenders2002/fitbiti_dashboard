@@ -1,17 +1,20 @@
 <template>
-    <div class="dashboard-container">
-      <div class="dashboard-header">
-        <h1 class="dashboard-heading">{{ user.name }} - {{ user.age }} jaar - {{ user.height }} cm - {{ user.weight }} kg</h1>
-        <button class="dashboard-back-button" @click="goToUserList">Go Back</button>
-      </div>
-      <div class="grid-container-data">
-        <StepsCard />
-        <CaloriesCard />
-        <DistanceTraveledCard />
-      </div>
-      <div class="grid-container-3">
-        <HeartBeatCard />
-        <SleepCard />
+    <SideBar></SideBar>
+    <div class="page">
+      <div class="dashboard-container">
+        <div class="dashboard-header">
+          <h1 class="dashboard-heading">{{ user.name }} - {{ user.age }} jaar - {{ user.height }} cm - {{ user.weight }} kg</h1>
+          <button class="dashboard-back-button" @click="goToUserList">Go Back</button>
+        </div>
+        <div class="grid-container-data">
+          <StepsCard />
+          <CaloriesCard />
+          <DistanceTraveledCard />
+        </div>
+        <div class="grid-container-3">
+          <HeartBeatCard />
+          <SleepCard />
+        </div>
       </div>
     </div>
   </template>
@@ -24,6 +27,7 @@
     import DistanceTraveledCard from '../components/DistanceTraveledCard.vue';
     import HeartBeatCard from '../components/HeartBeatCard.vue';
     import SleepCard from '../components/SleepCard.vue';
+    import SideBar from '../components/SideBar.vue';
   
     const props = defineProps({
       users: {
@@ -45,6 +49,10 @@
   </script>
   
   <style scoped>
+    .page{
+      background-color: #121528;
+      flex-grow: 1;
+    }
     .dashboard-container {
       background-color: #121528;
       flex-grow: 1;

@@ -1,7 +1,6 @@
 <template>
-    <div class="header">
-      <button class="back-button" @click="goToUserList">Go Back</button>
-    </div>
+  <side-bar></side-bar>
+  <div class="page">
     <div class="export">
       <h1>Export Data</h1>
       <p>Select the data to export:</p>
@@ -27,10 +26,13 @@
       </ul>
       <button @click="exportData">Export</button>
     </div>
+  </div>
   </template>
   
   <script lang="ts">
+import SideBar from '@/components/SideBar.vue';
   export default {
+  components: { SideBar },
     data() {
       return {
         exportOptions: {
@@ -45,14 +47,16 @@
         // Add logic to export selected data here
         console.log('Exporting data...');
       },
-      goToUserList() {
-        this.$router.push({ name: 'UserList' });
-      },
     },
   };
   </script>
   
   <style>
+  .page{
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+  }
   .header {
     display: flex;
     align-items: center;
@@ -65,7 +69,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    flex-grow: 2;
+    padding: 2rem;
     background-color: #121528;
     color: white;
   }
