@@ -12,12 +12,12 @@
         </router-link>
       </li>
 
-      <li :class="{'active': activeItem === 'addUser'}" @click="activeItem = 'addUser'" v-if="store.state.isLoggedIn">
-        <router-link to="/adduser">
+      <li :class="{'active': activeItem === 'addFitbit'}" @click="activeItem = 'addFitbit'" v-if="store.state.isLoggedIn">
+        <router-link to="/addFitbit">
           <span class="sidebar-menu-icon">
             <font-awesome-icon icon="user-plus" />
           </span>
-          <span class="sidebar-menu-label">Add User</span>
+          <span class="sidebar-menu-label">Add FitBit</span>
         </router-link>
       </li>
       
@@ -27,6 +27,15 @@
             <font-awesome-icon icon="file-export" />
           </span>
           <span class="sidebar-menu-label">Export data</span>
+        </router-link>
+      </li>
+
+      <li :class="{'active': activeItem === 'addUser'}" @click="activeItem = 'addUser'" v-if="store.state.isLoggedIn">
+        <router-link to="/addUser">
+          <span class="sidebar-menu-icon">
+            <font-awesome-icon icon="user-plus" />
+          </span>
+          <span class="sidebar-menu-label">Add user</span>
         </router-link>
       </li>
 

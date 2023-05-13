@@ -11,6 +11,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import axios from 'axios';
 import { store } from '../store/store';
 
 export default defineComponent({
@@ -24,8 +25,12 @@ export default defineComponent({
   methods: {
     async login() {
       try {
-        // Replace this with your authentication logic
-        if (this.username === 'admin' && this.password === 'admin') {
+        const response = await axios.post('https://localhost:7034/FitBitAuth/login', {
+          username: this.username,
+          password: this.password,
+        });
+
+        if (response.status === 200) {
           // Set the isLoggedIn variable to true to show the logout button
           store.commit('login');
 
@@ -33,7 +38,7 @@ export default defineComponent({
           this.$router.push('/dashboard');
         } else {
           // Handle login error
-          console.error('Invalid credentials');
+          console.error('Login failed');
         }
       } catch (error) {
         console.error(error);
@@ -42,6 +47,7 @@ export default defineComponent({
   },
 });
 </script>
+
 
   
 <style>

@@ -2,12 +2,16 @@
     <div class="header">
       <button class="back-button" @click="goToUserList">Go Back</button>
     </div>
-    <div class="addUser">
-      <h1>Add Fitbit User</h1>
+    <div class="adduser">
+      <h1>Add User</h1>
       <form @submit.prevent="submitForm">
         <label>
-          Fitbit ID:
-          <input type="text" v-model="fitbitId" />
+          <span>Username:</span>
+          <input type="text" v-model="username" />
+        </label>
+        <label>
+          <span>Password:</span>
+          <input type="password" v-model="password" />
         </label>
         <button type="submit">Add User</button>
       </form>
@@ -16,27 +20,43 @@
   
   <script lang="ts">
   import { defineComponent } from 'vue';
+  import axios from 'axios';
   
   export default defineComponent({
     data() {
       return {
-        fitbitId: '',
+        username: '',
+        password: '',
       };
     },
     methods: {
-      submitForm() {
-        // Add logic to submit the form here
-        console.log('Adding Fitbit user...');
+      async submitForm() {
+        try {
+          debugger;
+          const response = await axios.post('https://localhost:7034/FitBitAuth/register', {
+            username: this.username,
+            password: this.password,
+          });
+  
+          if (response.status === 200) {
+            console.log('User added successfully');
+            // Redirect to the user list or desired page
+          } else {
+            console.error('Failed to add user');
+          }
+        } catch (error) {
+          console.error(error);
+        }
       },
-        goToUserList() {
-            this.$router.push({ name: 'UserList' });
-        },
+      goToUserList() {
+        this.$router.push({ name: 'UserList' });
+      },
     },
   });
   </script>
   
   <style scoped>
-  .addUser{
+  .adduser{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,8 +77,15 @@
   label {
     margin-bottom: 0.5rem;
     font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
-  input[type="text"] {
+  label span {
+    margin-bottom: 0.25rem;
+  }
+  input[type="text"],
+  input[type="password"] {
     padding: 0.5rem;
     border-radius: 0.25rem;
     border: none;

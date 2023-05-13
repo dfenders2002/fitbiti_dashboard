@@ -7,7 +7,8 @@ import UserList from './views/UserList.vue';
 import Login from './views/Login.vue';
 import Logout from './components/Logout.vue'
 import Export from './views/Export.vue'
-import AddUser from './views/AddUser.vue'
+import AddFitbit from './views/AddFitBit.vue';
+import AddUser from './views/AddUser.vue';
 
 
 const routes: RouteRecordRaw[] = [
@@ -38,10 +39,15 @@ const routes: RouteRecordRaw[] = [
     component: Export,
   },
   {
-    path: '/adduser',
-    name: 'adduser',
+    path: '/addFitBit',
+    name: 'addFitbit',
+    component: AddFitbit,
+  },
+  {
+    path: '/addUser',
+    name: 'addUser',
     component: AddUser,
-  }
+  },
 ];
 
 const router = createRouter({
