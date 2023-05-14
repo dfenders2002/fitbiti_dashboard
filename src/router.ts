@@ -22,7 +22,7 @@ const routes: RouteRecordRaw[] = [
     component: UserList,
   },
   {
-    path: '/dashboard/:userId',
+    path: '/dashboard/:pid',
     name: 'Dashboard',
     component: Dashboard,
     props: true,

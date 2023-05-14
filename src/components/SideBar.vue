@@ -4,11 +4,11 @@
     <ul class="sidebar-menu">
 
       <router-link to="/dashboard" custom v-slot="{ navigate }">
-        <li :class="{'active': activeItem === 'users'}" @click="activateAndNavigate('users', navigate)" v-if="store.state.isLoggedIn">
+        <li :class="{'active': activeItem === 'dashboard'}" @click="activateAndNavigate('dashboard', navigate)" v-if="store.state.isLoggedIn">
           <span class="sidebar-menu-icon">
             <font-awesome-icon icon="user" />
           </span>
-          <span class="sidebar-menu-label">Users</span>
+          <span class="sidebar-menu-label">Dashboard</span>
         </li>
       </router-link>
 
@@ -53,18 +53,18 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { useStore } from '../store/store' ; 
-
+import { useStore } from '../store/store';
+import { useRouter, useRoute } from 'vue-router';
 
 export default defineComponent({
   name: 'SideBar',
   setup() {
-    const store = useStore(); // create a reference to the store
-    const activeItem = ref(store.state.activeItem); // access the activeItem state from the store
+    const store = useStore();
+    const activeItem = ref(store.state.activeItem);
 
     const activateItem = (item: string) => {
       store.commit('setActiveItem', item);
-      activeItem.value = item; // Update the activeItem ref
+      activeItem.value = item;
     };
     const activateAndNavigate = (item: string, navigate: () => void) => {
       activateItem(item);
@@ -74,19 +74,14 @@ export default defineComponent({
     return {
       activateAndNavigate,
       activeItem,
-      activateItem, // Add the activateItem function to the returned object
+      activateItem,
       store,
     };
   },
   methods: {
     performLogout() {
-      // Clear the isLoggedIn variable in the store to false
       this.store.commit('logout');
-      
-      // Redirect to the login page or wherever you want to go after logout
       this.$router.push('/');
-      
-      // Emit the logout event to the parent component if needed
       this.$emit('logout');
     },
     performLogin() {
@@ -94,11 +89,18 @@ export default defineComponent({
     },
   },
   beforeRouteUpdate(to, from, next) {
-    const item = to.path.split('/')[1]; // Extract the first segment of the current route path
-    this.activateItem(item); // Update the activeItem based on the current route
+    const item = to.path.split('/')[1];
+    this.activateItem(item);
     next();
   },
+  mounted() {
+    const currentPath = this.$route.path;
+    const item = currentPath.split('/')[1];
+    this.activateItem(item);
+  },
 });
+
+
 </script>
 
 

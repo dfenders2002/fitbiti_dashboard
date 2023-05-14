@@ -1,33 +1,36 @@
 <template>
   <side-bar></side-bar>
   <div class="page">
-    <div class="export">
+    <div class="adduser export">
       <h1>Export Data</h1>
       <p>Select the data to export:</p>
       <ul>
         <li>
           <label>
-            <input type="checkbox" v-model="exportOptions.healthData" />
-            Medische data
+            <span>Medische data</span>
+            <input type="checkbox" v-model="exportOptions.healthData" class="checkbox" />
           </label>
         </li>
         <li>
           <label>
-            <input type="checkbox" v-model="exportOptions.customerData" />
-            Fitbit data
+            <span>Fitbit data</span>
+            <input type="checkbox" v-model="exportOptions.customerData" class="checkbox" />
           </label>
         </li>
         <li>
           <label>
-            <input type="checkbox" v-model="exportOptions.productData" />
-            Blabla data
+            <span>Blabla data</span>
+            <input type="checkbox" v-model="exportOptions.productData" class="checkbox" />
           </label>
         </li>
       </ul>
-      <button @click="exportData">Export</button>
+      <button class="submit" @click="exportData">Export</button>
     </div>
   </div>
-  </template>
+</template>
+
+
+
   
   <script lang="ts">
 import SideBar from '@/components/SideBar.vue';
@@ -51,70 +54,91 @@ import SideBar from '@/components/SideBar.vue';
   };
   </script>
   
-  <style>
-  .page{
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-  }
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color:#121528;
-    padding: 2rem;
-  }
-  .export {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 2;
-    padding: 2rem;
-    background-color: #121528;
-    color: white;
-  }
-  h1 {
-    margin-bottom: 1rem;
-  }
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 1rem 0;
-  }
-  li {
-    margin-bottom: 0.5rem;
-  }
-  label {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-  input[type="checkbox"] {
-    margin-right: 0.5rem;
-  }
-  button {
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-    border: none;
-    background-color: #007aff;
-    color: #fff;
-    cursor: pointer;
-  }
-  .back-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: #2d363d;
-  color: #fff;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
+  <style scoped>
+.page {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+.adduser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  flex-grow: 2;
+  padding: 2rem;
+  padding-top: 10rem;
+  background-color: #121528;
+  color: white;
+}
+
+.textfield {
+  background: #2d363d;
+  height: 50px;
+  padding-left: 10px;
+  width: 500px;
+  color: white;
+  font-size: 20px;
+  border: 2px solid #2d363d;
+}
+
+.textfield::placeholder {
+  color: grey;
+  font-size: 20px;
+}
+
+h1 {
+  margin-bottom: 1rem;
+}
+p{
+  font-size: 18px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem;
+}
+
+label {
+  margin-bottom: 0.5rem;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+label span {
+  margin-right: 2rem;
+}
+
+.submit {
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: none;
+  background-color: #007aff;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 1rem;
+  height: 50px;
   font-size: 22px;
 }
 
-    
-  </style>
-  
+.export ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.export li {
+  margin-bottom: 0.5rem;
+}
+
+.export .checkbox {
+  width: 24px;
+  height: 24px;
+  margin-left: 0.5rem;
+}
+</style>
