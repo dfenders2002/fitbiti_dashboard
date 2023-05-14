@@ -123,6 +123,7 @@ label span {
   cursor: pointer;
   margin-top: 1rem;
   height: 50px;
+  width: 200px;
   font-size: 22px;
 }
 
