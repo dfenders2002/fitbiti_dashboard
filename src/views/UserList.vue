@@ -45,7 +45,7 @@ const users = ref([
 const filteredList = computed(() => {
   return users.value.filter((user) => {
     const nameMatch = user.name.toLowerCase().includes(search.value.toLowerCase());
-    const diseaseMatch = !selectedDisease.value || user.disease === selectedDisease.value;
+    const diseaseMatch = !selectedDisease.value || user.disease === selectedDisease.value || selectedDisease.value === 'Geen';
     return nameMatch && diseaseMatch;
   });
 });
