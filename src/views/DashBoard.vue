@@ -1,7 +1,8 @@
 <template>
   <div class="dashboard-container">
     <div class="dashboard-header">
-      <h1 class="dashboard-heading">{{ user.name }} - {{ user.age }} jaar - {{ user.height }} cm - {{ user.weight }} kg
+      <h1 class="dashboard-heading">{{ user.user_id }} - {{ user.steps }} jaar - {{ user.height }} cm - {{ user.weight }}
+        kg
       </h1>
       <button class="dashboard-back-button" @click="goToUserList">Go Back</button>
     </div>
@@ -37,7 +38,7 @@ const route = useRoute();
 const router = useRouter();
 const user = computed(() => {
   const userId = Number(route.params.userId);
-  return props.users.find((user) => user.id === userId);
+  return props.users.find((user) => user.user_id === userId);
 });
 
 function goToUserList() {

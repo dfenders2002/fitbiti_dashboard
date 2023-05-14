@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="grid-container-users">
-      <UserCard v-for="user in filteredList" :key="user.id" :user="user" @click="goToDashboard(user.id)" />
+      <UserCard v-for="user in filteredList" :key="user.user_id" :user="user" @click="goToDashboard(user.user_id)" />
     </div>
   </main>
 </template>
@@ -28,19 +28,13 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import UserCard from '../components/UserCard.vue'
+import UserCard from '../components/UserCard.vue';
+import fitbitMockdata from '../../fitbit_Mockdata.json';
 
 const router = useRouter();
 const search = ref('');
 const selectedDisease = ref('');
-const users = ref([
-  { id: 1, name: 'George Junior', age: 23, height: 175, weight: 69, disease: 'COVID-19' },
-  { id: 2, name: 'Emma Johnson', age: 28, height: 175, weight: 62, disease: 'Griep' },
-  { id: 3, name: 'Liam Brown', age: 41, height: 188, weight: 90, disease: 'Diabetes' },
-  { id: 4, name: 'Ava Davis', age: 36, height: 163, weight: 55, disease: 'Kanker' },
-  { id: 5, name: 'Jahir Estupinan', age: 27, height: 181, weight: 80, disease: 'Hart- en vaatziekten' }
-  // add more users here...
-]);
+const users = ref(fitbitMockdata);
 
 const filteredList = computed(() => {
   return users.value.filter((user) => {

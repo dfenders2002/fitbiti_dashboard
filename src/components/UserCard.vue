@@ -3,7 +3,7 @@
     <font-awesome-icon icon="user" class="user-icon" />
     <div class="user-info">
       <h2 class="name">{{ user.name }}</h2>
-      <p class="text">Age: {{ user.age }}</p>
+      <p class="text">BodyFat %: {{ user.body_fat_percentage }}</p>
       <p class="text">Height: {{ user.height }} cm</p>
       <p class="text">Weight: {{ user.weight }} kg</p>
       <p class="text">Disease: {{ user.disease }}</p>
