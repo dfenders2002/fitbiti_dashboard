@@ -6,7 +6,7 @@
       <label for="search" class="filter-label">Zoek op pid / ziekte</label>
       <input type="text" id="search" class="filter-input" placeholder="Type hier" v-model="searchTerm">
     </div>
-    <div class="grid-container-users">
+    <div class="grid-container-users" :style="{ 'grid-template-columns': gridColumns }">
       <UserCard
         v-for="user in filteredUsers"
         :key="user.pid"
@@ -31,7 +31,8 @@ const users = ref([
   { pid: 'PID789123456', name: 'Ava Davis', age: 36, height: 163, weight: 55, disease: 'kanker' },
   { pid: 'PID111222333', name: 'Sophia Smith', age: 32, height: 170, weight: 60, disease: 'diabetes' },
   { pid: 'PID444555666', name: 'Noah Wilson', age: 45, height: 180, weight: 85, disease: 'kanker' },
-  { pid: 'PID777888999', name: 'Olivia Taylor', age: 19, height: 160, weight: 50, disease: 'astma' },
+  { pid: 'PID456789123', name: 'Liam Brown', age: 41, height: 188, weight: 90, disease: 'ebola' },
+  { pid: 'PID789123456', name: 'Ava Davis', age: 36, height: 163, weight: 55, disease: 'kanker' },
   // voeg hier meer gebruikers toe...
 ]);
 
@@ -41,6 +42,16 @@ const searchTerm = ref('');
 function goToDashboard(pid: string) {
   router.push({ name: 'Dashboard', params: { pid } });
 }
+
+const userCount = computed(() => {
+  return users.value.length;
+});
+
+const gridColumns = computed(() => {
+  const columns = Math.ceil(Math.sqrt(userCount.value));
+  return `repeat(${columns}, 1fr)`;
+});
+
 
 const filteredUsers = computed(() => {
   return users.value.filter(user => {
