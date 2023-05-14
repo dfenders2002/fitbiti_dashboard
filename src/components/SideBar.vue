@@ -3,35 +3,44 @@
     <h1 class="sidebar-title">FITBIT</h1>
     <ul class="sidebar-menu">
 
-      <li :class="{'active': activeItem === 'users'}" @click="activeItem = 'users'" v-if="store.state.isLoggedIn">
-        <router-link to="/dashboard">
+      <router-link to="/dashboard" custom v-slot="{ navigate }">
+        <li :class="{'active': activeItem === 'dashboard'}" @click="activateAndNavigate('dashboard', navigate)" v-if="store.state.isLoggedIn">
           <span class="sidebar-menu-icon">
             <font-awesome-icon icon="user" />
           </span>
-          <span class="sidebar-menu-label">Users</span>
-        </router-link>
-      </li>
+          <span class="sidebar-menu-label">Dashboard</span>
+        </li>
+      </router-link>
 
-      <li :class="{'active': activeItem === 'addUser'}" @click="activeItem = 'addUser'" v-if="store.state.isLoggedIn">
-        <router-link to="/adduser">
+      <router-link to="/addFitbit" custom v-slot="{ navigate }">
+        <li :class="{'active': activeItem === 'addFitbit'}" @click="activateAndNavigate('addFitbit', navigate)" v-if="store.state.isLoggedIn">
           <span class="sidebar-menu-icon">
             <font-awesome-icon icon="user-plus" />
           </span>
-          <span class="sidebar-menu-label">Add User</span>
-        </router-link>
-      </li>
+          <span class="sidebar-menu-label">Add FitBit</span>
+        </li>
+      </router-link>
       
-      <li :class="{'active': activeItem === 'export'}" @click="activeItem = 'export'" v-if="store.state.isLoggedIn">
-        <router-link to="/export">
+      <router-link to="/export" custom v-slot="{ navigate }">
+        <li :class="{'active': activeItem === 'export'}" @click="activateAndNavigate('export', navigate)" v-if="store.state.isLoggedIn">
           <span class="sidebar-menu-icon">
             <font-awesome-icon icon="file-export" />
           </span>
           <span class="sidebar-menu-label">Export data</span>
-        </router-link>
-      </li>
+        </li>
+      </router-link>
+
+      <router-link to="/addUser" custom v-slot="{ navigate }">
+        <li :class="{'active': activeItem === 'addUser'}" @click="activateAndNavigate('addUser', navigate)" v-if="store.state.isLoggedIn">
+          <span class="sidebar-menu-icon">
+            <font-awesome-icon icon="user-plus" />
+          </span>
+          <span class="sidebar-menu-label">Add user</span>
+        </li>
+      </router-link>
 
 
-      <div class="sidebar-login" v-if="!store.state.isLoggedIn">
+    <div class="sidebar-login" v-if="!store.state.isLoggedIn">
       <button class="sidebar-login-button" @click="performLogin">Log In</button>
     </div>
       
@@ -43,28 +52,55 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { useStore } from '../store/store' ; 
+import { defineComponent, ref } from 'vue';
+import { useStore } from '../store/store';
+import { useRouter, useRoute } from 'vue-router';
 
 export default defineComponent({
   name: 'SideBar',
   setup() {
-    const store = useStore(); // create a reference to the store
-    const activeItem = store.state.activeItem; // access the activeItem state from the store
+    const store = useStore();
+    const activeItem = ref(store.state.activeItem);
+
+    const activateItem = (item: string) => {
+      store.commit('setActiveItem', item);
+      activeItem.value = item;
+    };
+    const activateAndNavigate = (item: string, navigate: () => void) => {
+      activateItem(item);
+      navigate();
+    };
+
     return {
+      activateAndNavigate,
       activeItem,
+      activateItem,
       store,
     };
   },
   methods: {
     performLogout() {
-      this.$router.push('/logout');
+      this.store.commit('logout');
+      this.$router.push('/');
+      this.$emit('logout');
     },
     performLogin() {
       this.$router.push('/');
     },
   },
+  beforeRouteUpdate(to, from, next) {
+    const item = to.path.split('/')[1];
+    this.activateItem(item);
+    next();
+  },
+  mounted() {
+    const currentPath = this.$route.path;
+    const item = currentPath.split('/')[1];
+    this.activateItem(item);
+  },
 });
+
+
 </script>
 
 
