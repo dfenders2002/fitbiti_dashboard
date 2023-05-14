@@ -1,13 +1,14 @@
 <template>
-<div class="user-card" @click="$emit('click')">
-  <font-awesome-icon icon="user" class="user-icon"/>
-  <div class="user-info">
-    <h2 class="name">{{ user.name }}</h2>
-    <p class="text">Age: {{ user.age }}</p>
-    <p class="text">Height: {{ user.height }} cm</p>
-    <p class="text">Weight: {{ user.weight }} kg</p>
+  <div class="user-card" @click="$emit('click')">
+    <font-awesome-icon icon="user" class="user-icon" />
+    <div class="user-info">
+      <h2 class="name">{{ user.name }}</h2>
+      <p class="text">Age: {{ user.age }}</p>
+      <p class="text">Height: {{ user.height }} cm</p>
+      <p class="text">Weight: {{ user.weight }} kg</p>
+      <p class="text">Disease: {{ user.disease }}</p>
+    </div>
   </div>
-</div>
 </template>
 
 <script setup lang="ts">
@@ -21,19 +22,19 @@ const props = defineProps({
 
 </script>
   
-  <style scoped>
-  .user-card {
-    background-color: #2d363d;
-    border-radius: 10px;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    color: white;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .user-icon {
+<style scoped>
+.user-card {
+  background-color: #2d363d;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  color: white;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.user-icon {
   font-size: 40px;
   width: 75px;
   height: 75px;
@@ -42,8 +43,8 @@ const props = defineProps({
   color: #5a68ff;
 }
 
-  
-  .user-info {
+
+.user-info {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -60,5 +61,5 @@ const props = defineProps({
 .text {
   font-size: 18px;
 }
-  </style>
+</style>
   
