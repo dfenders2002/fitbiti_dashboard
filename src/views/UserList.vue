@@ -4,15 +4,15 @@
     <h1 class="user-list-heading">Gebruikerslijst</h1>
     <div class="search-bar">
       <label for="search" class="filter-label">Zoek op pid/ziekte</label>
-      <input type="text" id="search" class="filter-input" placeholder="Type hier" v-model="searchTerm">
+      <input type="text" id="search" class="filter-input" placeholder="Type hier" v-model="searchTerm" />
     </div>
     <div class="grid-container-users" :style="{ 'grid-template-columns': gridColumns }">
-      <UserCard
-        v-for="user in filteredUsers"
-        :key="user.pid"
-        :user="user"
-        @click="goToDashboard(user.pid)"
-      />
+      <UserCard v-for="user in displayedUsers" :key="user.pid" :user="user" @click="goToDashboard(user.pid)" />
+    </div>
+    <div class="pagination">
+      <button :disabled="currentPage === 1" @click="previousPage">Vorige</button>
+      <span>{{ currentPage }} van {{ totalPages }}</span>
+      <button :disabled="currentPage === totalPages" @click="nextPage">Volgende</button>
     </div>
   </div>
 </template>
@@ -20,7 +20,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import UserCard from '../components/UserCard.vue'
+import UserCard from '../components/UserCard.vue';
 import SideBar from '@/components/SideBar.vue';
 
 const router = useRouter();
@@ -31,11 +31,18 @@ const users = ref([
   { pid: 'PID789123456', age: 36, height: 163, weight: 55, disease: 'kanker', intreatmentnow: false  },
   { pid: 'PID111222333', age: 32, height: 170, weight: 60, disease: 'diabetes', intreatmentnow: false  },
   { pid: 'PID444555666', age: 45, height: 180, weight: 85, disease: 'kanker', intreatmentnow: true  },
-  { pid: 'PID456789123', age: 41, height: 188, weight: 90, disease: 'ebola', intreatmentnow: false  },
+  { pid: 'PID456289123', age: 41, height: 188, weight: 90, disease: 'ebola', intreatmentnow: false  },
   { pid: 'PID789123456', age: 36, height: 163, weight: 55, disease: 'kanker', intreatmentnow: true  },
+  { pid: 'PID777666555', age: 46, height: 168, weight: 65, disease: 'astma', intreatmentnow: false },
+  { pid: 'PID555666777', age: 33, height: 173, weight: 68, disease: 'ziekte van Crohn', intreatmentnow: false },
+  { pid: 'PID888777666', age: 50, height: 182, weight: 84, disease: 'fibromyalgie', intreatmentnow: true },
+  { pid: 'PID666777888', age: 25, height: 175, weight: 70, disease: 'migraine', intreatmentnow: false },
+  { pid: 'PID444777111', age: 29, height: 167, weight: 60, disease: 'artrose', intreatmentnow: false },
+  { pid: 'PID888666555', age: 39, height: 176, weight: 72, disease: 'reuma', intreatmentnow: true },
+  { pid: 'PID333555111', age: 42, height: 170, weight: 75, disease: 'cholera', intreatmentnow: true },
+  { pid: 'PID222444888', age: 56, height: 180, weight: 89, disease: 'diabetes type 2', intreatmentnow: false }
   // voeg hier meer gebruikers toe...
 ]);
-
 
 const searchTerm = ref('');
 
@@ -47,21 +54,47 @@ const userCount = computed(() => {
   return users.value.length;
 });
 
-const gridColumns = computed(() => {
-  const columns = Math.ceil(Math.sqrt(userCount.value));
-  return `repeat(${columns}, 1fr)`;
+const PAGE_SIZE = 9;
+const currentPage = ref(1);
+const totalPages = computed(() => {
+  const filteredUsersLength = filteredUsers.value.length;
+  if (filteredUsersLength === 0) {
+    return 1;
+  } else {
+    return Math.ceil(filteredUsersLength / PAGE_SIZE);
+  }
 });
 
 
+const gridColumns = computed(() => {
+  const columns = Math.ceil(Math.sqrt(PAGE_SIZE));
+  return `repeat(${columns}, 1fr)`;
+});
+
 const filteredUsers = computed(() => {
-  return users.value.filter(user => {
+  return users.value.filter((user) => {
     const search = searchTerm.value.toLowerCase();
     const pidMatch = user.pid.toLowerCase().includes(search);
     const diseaseMatch = user.disease.toLowerCase().includes(search);
     return pidMatch || diseaseMatch;
   });
 });
+
+const displayedUsers = computed(() => {
+  const start = (currentPage.value - 1) * PAGE_SIZE;
+  const end = start + PAGE_SIZE;
+  return filteredUsers.value.slice(start, end);
+});
+
+function nextPage() {
+  currentPage.value++;
+}
+
+function previousPage() {
+  currentPage.value--;
+}
 </script>
+
 
 <style scoped>
 .main {
@@ -104,8 +137,27 @@ const filteredUsers = computed(() => {
 .grid-container-users {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  max-height: 400px;
-  overflow-y: scroll;
+  max-height: 600px;
+  overflow-y: auto;
   grid-gap: 20px;
 }
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  .pagination button {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: none;
+    background-color: #ddd;
+    color: #555;
+    cursor: pointer;
+  }
+  .pagination button:disabled {
+    background-color: #eee;
+    color: #ccc;
+    cursor: default;
+  }
 </style>
