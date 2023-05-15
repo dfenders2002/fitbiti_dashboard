@@ -3,7 +3,7 @@
   <div class="page">
     <div class="dashboard-container">
       <div class="dashboard-header">
-        <h1 class="dashboard-heading">{{ user.name }} - {{ user.age }} jaar - {{ user.height }} cm - {{ user.weight }} kg - Ziekte: {{ user.disease }}</h1>
+        <h1 class="dashboard-heading">{{ user.name }} - {{ user.age }} jaar - {{ user.height }} cm - {{ user.weight }} kg - Ziekte: {{ user.disease }} in behandeling - {{ user.intreatmentnow }}</h1>
         <button class="dashboard-back-button" @click="goToUserList">Go Back</button>
       </div>
       <div class="grid-container-data">

@@ -7,6 +7,7 @@
       <p class="text">Height: {{ user.height }} cm</p>
       <p class="text">Weight: {{ user.weight }} kg</p>
       <p class="text">Ziekte: {{ user.disease }}</p>
+      <p class="text">In behandeling: {{ user.intreatmentnow ? 'ja' : 'nee' }}</p>
     </div>
   </div>
 </template>
