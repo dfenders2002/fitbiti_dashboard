@@ -2,7 +2,7 @@
   <div class="user-card" @click="$emit('click')">
     <font-awesome-icon icon="user" class="user-icon" />
     <div class="user-info">
-      <h2 class="name">{{ user.name }}</h2>
+      <h2 class="name">{{ user.pid }}</h2>
       <p class="text">BodyFat %: {{ user.body_fat_percentage }}</p>
       <p class="text">Height: {{ user.height }} cm</p>
       <p class="text">Weight: {{ user.weight }} kg</p>
