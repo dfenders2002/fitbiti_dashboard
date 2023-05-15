@@ -1,28 +1,15 @@
 <template>
-  <main>
-    <h1 class="user-list-heading">Fitbithouders</h1>
-    <div class="filters">
-      <h2 class="filters-heading">Filters</h2>
-      <div class="filter-item">
-        <label for="search" class="filter-label">Zoek:</label>
-        <input type="text" id="search" class="filter-input" v-model="search" placeholder="Zoek op naam">
-      </div>
-      <div class="filter-item">
-        <label for="disease" class="filter-label">Ziekte:</label>
-        <select id="disease" class="filter-select" v-model="selectedDisease">
-          <option>Geen</option>
-          <option>COVID-19</option>
-          <option>Griep</option>
-          <option>Diabetes</option>
-          <option>Kanker</option>
-          <option>Hart- en vaatziekten</option>
-        </select>
-      </div>
+  <side-bar />
+  <div class="main">
+    <h1 class="user-list-heading">Gebruikerslijst</h1>
+    <div class="search-bar">
+      <label for="search" class="filter-label">Zoek op pid / ziekte</label>
+      <input type="text" id="search" class="filter-input" placeholder="Type hier" v-model="searchTerm">
     </div>
-    <div class="grid-container-users">
-      <UserCard v-for="user in filteredList" :key="user.user_id" :user="user" @click="goToDashboard(user.user_id)" />
+    <div class="grid-container-users" :style="{ 'grid-template-columns': gridColumns }">
+      <UserCard v-for="user in filteredUsers" :key="user.pid" :user="user" @click="goToDashboard(user.pid)" />
     </div>
-  </main>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -36,20 +23,32 @@ const search = ref('');
 const selectedDisease = ref('');
 const users = ref(fitbitMockdata);
 
-const filteredList = computed(() => {
-  return users.value.filter((user) => {
-    const nameMatch = user.name.toLowerCase().includes(search.value.toLowerCase());
-    const diseaseMatch = !selectedDisease.value || user.disease === selectedDisease.value || selectedDisease.value === 'Geen';
-    return nameMatch && diseaseMatch;
-  });
-});
 
-function goToDashboard(id: number) {
-  router.push(`/dashboard/${id}`);
+const searchTerm = ref('');
+
+function goToDashboard(pid: string) {
+  router.push({ name: 'Dashboard', params: { pid } });
 }
 
-</script>
+const userCount = computed(() => {
+  return users.value.length;
+});
 
+const gridColumns = computed(() => {
+  const columns = Math.ceil(Math.sqrt(userCount.value));
+  return `repeat(${columns}, 1fr)`;
+});
+
+
+const filteredUsers = computed(() => {
+  return users.value.filter(user => {
+    const search = searchTerm.value.toLowerCase();
+    const pidMatch = user.pid.toLowerCase().includes(search);
+    const diseaseMatch = user.disease.toLowerCase().includes(search);
+    return pidMatch || diseaseMatch;
+  });
+});
+</script>
 
 <style scoped>
 .main {
@@ -64,47 +63,30 @@ function goToDashboard(id: number) {
   padding-bottom: 30px;
 }
 
-.filters {
-  margin: auto;
+.search-bar {
+  font-size: 26px;
   display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.filters-heading {
-  display: flex;
-  align-items: center;
-  color: white;
-  font-size: 22px;
-  margin-right: 5rem;
-}
-
-.filter-item {
-  display: flex;
-  align-items: center;
-  margin-right: 5rem;
-  font-size: 22px;
+  flex-direction: column;
 }
 
 .filter-label {
-  margin: auto;
   color: white;
   margin-right: 0.5rem;
 }
 
 .filter-input {
-  margin: auto;
-  background: white;
-  height: 32px;
-  padding-left: 12px;
+  background: #2d363d;
+  height: 50px;
+  padding-left: 10px;
+  width: 500px;
+  margin-bottom: 50px;
+  color: white;
+  font-size: 20px;
 }
 
-.filter-select {
-  padding: 0.5rem;
-  height: 32px;
-  border-radius: 4px;
-  border: none;
-  outline: none;
+.filter-input::placeholder {
+  color: grey;
+  font-size: 20px;
 }
 
 .grid-container-users {

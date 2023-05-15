@@ -6,7 +6,7 @@
       <p class="text">BodyFat %: {{ user.body_fat_percentage }}</p>
       <p class="text">Height: {{ user.height }} cm</p>
       <p class="text">Weight: {{ user.weight }} kg</p>
-      <p class="text">Disease: {{ user.disease }}</p>
+      <p class="text">ziekte: {{ user.disease }}</p>
     </div>
   </div>
 </template>
