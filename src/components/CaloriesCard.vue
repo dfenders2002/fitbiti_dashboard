@@ -1,6 +1,6 @@
 <template>
     <div class="calories-card">
-      <div class="calories-title">Calorieën verbrand:</div>
+      <div class="calories-title">Calorieën verbrand</div>
       <div class="calories-chart-container">
         <apexchart type="radialBar" :options="chartOptions" :series="series" />
       </div>
