@@ -3,7 +3,7 @@
   <div class="main">
     <h1 class="user-list-heading">Gebruikerslijst</h1>
     <div class="search-bar">
-      <label for="search" class="filter-label">Zoek op pid / ziekte</label>
+      <label for="search" class="filter-label">Zoek op pid/ziekte</label>
       <input type="text" id="search" class="filter-input" placeholder="Type hier" v-model="searchTerm">
     </div>
     <div class="grid-container-users" :style="{ 'grid-template-columns': gridColumns }">
