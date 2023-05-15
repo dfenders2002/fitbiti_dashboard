@@ -76,6 +76,12 @@ function goToUserList() {
   margin-right: 20px;
 }
 
+.dashboard-text {
+  margin: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
 .dashboard-heading {
   font-size: 32px;
 }

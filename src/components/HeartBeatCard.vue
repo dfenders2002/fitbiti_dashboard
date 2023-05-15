@@ -1,7 +1,7 @@
 <template>
     <div class="card">
       <div class="card-header">
-        <h2 class="card-title">Heartbeat</h2>
+        <h2 class="card-title">Hartslag</h2>
       </div>
       <div class="card-body">
         <apexchart type="line" :options="chartOptions" :series="chartSeries"></apexchart>

@@ -3,9 +3,9 @@
     <font-awesome-icon icon="user" class="user-icon" />
     <div class="user-info">
       <h2 class="name">{{ user.pid }}</h2>
-      <p class="text">Age: {{ user.age }}</p>
-      <p class="text">Height: {{ user.height }} cm</p>
-      <p class="text">Weight: {{ user.weight }} kg</p>
+      <p class="text">Leeftijd: {{ user.age }}</p>
+      <p class="text">Lengte: {{ user.height }} cm</p>
+      <p class="text">Gewicht: {{ user.weight }} kg</p>
       <p class="text">Ziekte: {{ user.disease }}</p>
       <p class="text">In behandeling: {{ user.intreatmentnow ? 'ja' : 'nee' }}</p>
     </div>
