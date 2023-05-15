@@ -104,6 +104,8 @@ const filteredUsers = computed(() => {
 .grid-container-users {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  max-height: 400px;
+  overflow-y: scroll;
   grid-gap: 20px;
 }
 </style>
