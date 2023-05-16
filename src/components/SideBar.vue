@@ -1,53 +1,47 @@
 <template>
   <div class="sidebar">
+
     <h1 class="sidebar-title">FITBIT</h1>
+
     <ul class="sidebar-menu">
 
       <router-link to="/dashboard" custom v-slot="{ navigate }">
-        <li :class="{'active': activeItem === 'dashboard'}" @click="activateAndNavigate('dashboard', navigate)" v-if="store.state.isLoggedIn">
-          <span class="sidebar-menu-icon">
-            <font-awesome-icon icon="user" />
-          </span>
+        <li :class="{ 'active': activeItem === 'dashboard' }" @click="activateAndNavigate('dashboard', navigate)"
+          v-if="store.state.isLoggedIn">
+          <span class="sidebar-menu-icon"> <font-awesome-icon icon="user" /> </span>
           <span class="sidebar-menu-label">Dashboard</span>
         </li>
       </router-link>
 
       <router-link to="/addFitbit" custom v-slot="{ navigate }">
-        <li :class="{'active': activeItem === 'addFitbit'}" @click="activateAndNavigate('addFitbit', navigate)" v-if="store.state.isLoggedIn">
-          <span class="sidebar-menu-icon">
-            <font-awesome-icon icon="user-plus" />
-          </span>
+        <li :class="{ 'active': activeItem === 'addFitbit' }" @click="activateAndNavigate('addFitbit', navigate)"
+          v-if="store.state.isLoggedIn">
+          <span class="sidebar-menu-icon"> <font-awesome-icon icon="user-plus" /> </span>
           <span class="sidebar-menu-label">Add FitBit</span>
         </li>
       </router-link>
-      
+
       <router-link to="/export" custom v-slot="{ navigate }">
-        <li :class="{'active': activeItem === 'export'}" @click="activateAndNavigate('export', navigate)" v-if="store.state.isLoggedIn">
-          <span class="sidebar-menu-icon">
-            <font-awesome-icon icon="file-export" />
-          </span>
+        <li :class="{ 'active': activeItem === 'export' }" @click="activateAndNavigate('export', navigate)"
+          v-if="store.state.isLoggedIn">
+          <span class="sidebar-menu-icon"> <font-awesome-icon icon="file-export" /> </span>
           <span class="sidebar-menu-label">Export data</span>
         </li>
       </router-link>
 
       <router-link to="/addUser" custom v-slot="{ navigate }">
-        <li :class="{'active': activeItem === 'addUser'}" @click="activateAndNavigate('addUser', navigate)" v-if="store.state.isLoggedIn">
-          <span class="sidebar-menu-icon">
-            <font-awesome-icon icon="user-plus" />
-          </span>
+        <li :class="{ 'active': activeItem === 'addUser' }" @click="activateAndNavigate('addUser', navigate)"
+          v-if="store.state.isLoggedIn">
+          <span class="sidebar-menu-icon"> <font-awesome-icon icon="user-plus" /> </span>
           <span class="sidebar-menu-label">Add user</span>
         </li>
       </router-link>
-
-
-    <div class="sidebar-login" v-if="!store.state.isLoggedIn">
-      <button class="sidebar-login-button" @click="performLogin">Log In</button>
-    </div>
-      
     </ul>
+
     <div class="sidebar-logout" v-if="store.state.isLoggedIn">
       <button class="sidebar-logout-button" @click="performLogout">Log Out</button>
     </div>
+    
   </div>
 </template>
 
@@ -99,12 +93,7 @@ export default defineComponent({
     this.activateItem(item);
   },
 });
-
-
 </script>
-
-
-
 
 <style scoped>
 .sidebar {
@@ -197,5 +186,4 @@ export default defineComponent({
 .sidebar-login-button:hover {
   background-color: #444fac;
 }
-
 </style>
