@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import SideBar from './components/SideBar.vue';
 import { useStore } from './store/store';
 
@@ -23,6 +23,14 @@ const users = ref([
   { pid: 'PID777888999', name: 'Olivia Taylor', age: 19, height: 160, weight: 50, disease: 'astma' },
   // add more users here...
 ]);
+
+onMounted(() => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    store.commit('login');
+  }
+});
+
 </script>
 
 

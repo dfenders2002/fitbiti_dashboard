@@ -45,7 +45,7 @@ export default defineComponent({
       }
 
       try {
-        const response = await axios.post('https://localhost:7034/FitBitAuth/register', {
+        const response = await axios.post('https://localhost:7039/FitBitAuth/register', {
           username: this.username,
           password: this.password,
         });

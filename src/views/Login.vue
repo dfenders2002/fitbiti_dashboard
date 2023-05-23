@@ -29,7 +29,7 @@ export default defineComponent({
         this.$router.push('/dashboard');
       }else{
         try {
-        const response = await axios.post('https://localhost:7034/FitBitAuth/login', {
+        const response = await axios.post('https://localhost:7039/FitBitAuth/login', {
           username: this.username,
           password: this.password,
         });
@@ -37,7 +37,7 @@ export default defineComponent({
         if (response.status === 200) {
           // Set the isLoggedIn variable to true to show the logout button
           store.commit('login');
-
+          localStorage.setItem('token', response.data.token);
           // Redirect to the dashboard or wherever you want to go after login
           this.$router.push('/dashboard');
         } else {

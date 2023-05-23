@@ -4,6 +4,7 @@ export const store = createStore({
   state: {
     isLoggedIn: false,
     // add other state properties here...
+    activeItem: null,
   },
   mutations: {
     login(state) {
@@ -11,6 +12,10 @@ export const store = createStore({
     },
     logout(state) {
       state.isLoggedIn = false;
+    },
+
+    setActiveItem(state, item) {
+      state.activeItem = item;
     },
     // add other mutations here...
   },
