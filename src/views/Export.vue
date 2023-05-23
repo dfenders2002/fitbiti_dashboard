@@ -3,7 +3,7 @@
   <div class="page">
     <div class="adduser export">
       <h1>Export Data</h1>
-      <p>Select the data to export:</p>
+      <p>Selecteer de data om te exporteren:</p>
       <ul>
         <li>
           <label>
@@ -19,7 +19,7 @@
         </li>
         <li>
           <label>
-            <span>Blabla data</span>
+            <span>Gebruikersdata</span>
             <input type="checkbox" v-model="exportOptions.productData" class="checkbox" />
           </label>
         </li>

@@ -3,7 +3,12 @@
   <div class="page">
     <div class="dashboard-container">
       <div class="dashboard-header">
-        <h1 class="dashboard-heading">{{ user.name }} - {{ user.age }} jaar - {{ user.height }} cm - {{ user.weight }} kg - ziekte: {{ user.disease }}</h1>
+        <h1 class="dashboard-heading">{{ user.pid }}</h1>
+        <p class="dashboard-text">{{ user.age }} jaar</p>
+        <p class="dashboard-text">{{ user.height }} cm</p>
+        <p class="dashboard-text">{{ user.weight }} kg</p>
+        <p class="dashboard-text">Ziekte: {{ user.disease }}</p>
+        <p class="dashboard-text">In behandeling: {{ user.intreatmentnow ? 'ja' : 'nee' }}</p>
         <button class="dashboard-back-button" @click="goToUserList">Go Back</button>
       </div>
       <div class="grid-container-data">
@@ -50,51 +55,58 @@ function goToUserList() {
 }
 </script>
   
-  <style scoped>
-    .page{
-      background-color: #121528;
-      flex-grow: 1;
-    }
-    .dashboard-container {
-      background-color: #121528;
-      flex-grow: 1;
-      padding: 2rem;
-      color: white;
-    }
-  
-    .dashboard-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 30px;
-      margin-right: 20px;
-    }
-  
-    .dashboard-heading {
-      font-size: 32px;
-    }
-  
-    .dashboard-back-button {
-      background-color: #2d363d;
-      color: #fff;
-      border: none;
-      padding: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 22px;
-    }
-  
-    .grid-container-data {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-gap: 20px;
-    }
-  
-    .grid-container-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-gap: 20px;
-    }
-  </style>
+<style scoped>
+.page {
+  background-color: #121528;
+  flex-grow: 1;
+}
+
+.dashboard-container {
+  background-color: #121528;
+  flex-grow: 1;
+  padding: 2rem;
+  color: white;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  margin-right: 20px;
+}
+
+.dashboard-text {
+  margin: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.dashboard-heading {
+  font-size: 32px;
+}
+
+.dashboard-back-button {
+  background-color: #2d363d;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.grid-container-data {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+}
+
+.grid-container-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+}
+</style>
   

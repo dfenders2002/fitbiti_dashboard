@@ -1,6 +1,6 @@
 <template>
     <div class="steps-card">
-      <div class="steps-title">Steps:</div>
+      <div class="steps-title">Stappen</div>
       <div class="steps-chart-container">
         <apexchart type="radialBar" :options="chartOptions" :series="series" />
       </div>
@@ -93,7 +93,7 @@ export default {
 .steps-card {
   background-color: #2d363d;
   border-radius: 10px;
-  padding: 10px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -111,6 +111,7 @@ export default {
 .steps-chart-container {
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 </style>
