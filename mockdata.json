@@ -179,8 +179,8 @@
         ],
         "sleep": [
             {
-                "StartTime": "14-03-20231:16am",
-                "EndTime": "14-03-202311:35am",
+                "StartTime": "2023-03-14T01:16:00",
+                "EndTime": "2023-03-14T11:35:00",
                 "MinutesAsleep": 503,
                 "MinutesAwake": 116,
                 "NumberofAwakenings": 40,
@@ -190,8 +190,8 @@
                 "MinutesDeepSleep": 84
             },
             {
-                "StartTime": "13-03-20231:00am",
-                "EndTime": "13-03-202311:38am",
+                "StartTime": "2023-03-13T01:00:00",
+                "EndTime": "2023-03-13T11:38:00",
                 "MinutesAsleep": 536,
                 "MinutesAwake": 102,
                 "NumberofAwakenings": 55,
@@ -201,8 +201,8 @@
                 "MinutesDeepSleep": 126
             },
             {
-                "StartTime": "12-03-20234:00am",
-                "EndTime": "12-03-20239:09am",
+                "StartTime": "2023-03-12T04:00:00",
+                "EndTime": "2023-03-12T09:09:00",
                 "MinutesAsleep": 255,
                 "MinutesAwake": 54,
                 "NumberofAwakenings": 11,
@@ -212,8 +212,8 @@
                 "MinutesDeepSleep": 66
             },
             {
-                "StartTime": "11-03-20234:44am",
-                "EndTime": "11-03-202311:00am",
+                "StartTime": "2023-03-11T04:44:00",
+                "EndTime": "2023-03-11T11:00:00",
                 "MinutesAsleep": 314,
                 "MinutesAwake": 62,
                 "NumberofAwakenings": 31,
@@ -223,8 +223,8 @@
                 "MinutesDeepSleep": 72
             },
             {
-                "StartTime": "09-03-202311:34pm",
-                "EndTime": "10-03-202310:41am",
+                "StartTime": "2023-03-09T23:34:00",
+                "EndTime": "2023-03-10T10:41:00",
                 "MinutesAsleep": 562,
                 "MinutesAwake": 105,
                 "NumberofAwakenings": 53,
@@ -234,8 +234,8 @@
                 "MinutesDeepSleep": 85
             },
             {
-                "StartTime": "09-03-202312:56am",
-                "EndTime": "09-03-20238:29am",
+                "StartTime": "2023-03-09T00:56:00",
+                "EndTime": "2023-03-09T08:29:00",
                 "MinutesAsleep": 381,
                 "MinutesAwake": 72,
                 "NumberofAwakenings": 40,
@@ -245,8 +245,8 @@
                 "MinutesDeepSleep": 70
             },
             {
-                "StartTime": "08-03-20232:15am",
-                "EndTime": "08-03-202311:50am",
+                "StartTime": "2023-03-08T02:15:00",
+                "EndTime": "2023-03-08T11:50:00",
                 "MinutesAsleep": 485,
                 "MinutesAwake": 90,
                 "NumberofAwakenings": 44,
@@ -256,8 +256,8 @@
                 "MinutesDeepSleep": 105
             },
             {
-                "StartTime": "07-03-20232:45am",
-                "EndTime": "07-03-20239:59am",
+                "StartTime": "2023-03-07T02:45:00",
+                "EndTime": "2023-03-07T09:59:00",
                 "MinutesAsleep": 364,
                 "MinutesAwake": 69,
                 "NumberofAwakenings": 26,
@@ -267,8 +267,8 @@
                 "MinutesDeepSleep": 60
             },
             {
-                "StartTime": "06-03-202312:15am",
-                "EndTime": "06-03-202310:40am",
+                "StartTime": "2023-03-06T00:15:00",
+                "EndTime": "2023-03-06T10:40:00",
                 "MinutesAsleep": 528,
                 "MinutesAwake": 97,
                 "NumberofAwakenings": 51,
@@ -278,8 +278,8 @@
                 "MinutesDeepSleep": 96
             },
             {
-                "StartTime": "05-03-202312:37am",
-                "EndTime": "05-03-20238:56am",
+                "StartTime": "2023-03-05T00:37:00",
+                "EndTime": "2023-03-05T08:56:00",
                 "MinutesAsleep": 430,
                 "MinutesAwake": 69,
                 "NumberofAwakenings": 39,
@@ -289,8 +289,8 @@
                 "MinutesDeepSleep": 84
             },
             {
-                "StartTime": "04-03-202312:18am",
-                "EndTime": "04-03-20239:24am",
+                "StartTime": "2023-03-04T00:18:00",
+                "EndTime": "2023-03-04T09:24:00",
                 "MinutesAsleep": 469,
                 "MinutesAwake": 77,
                 "NumberofAwakenings": 41,
@@ -300,8 +300,8 @@
                 "MinutesDeepSleep": 66
             },
             {
-                "StartTime": "03-03-20233:25am",
-                "EndTime": "03-03-202311:53am",
+                "StartTime": "2023-03-03T03:25:00",
+                "EndTime": "2023-03-03T11:53:00",
                 "MinutesAsleep": 429,
                 "MinutesAwake": 79,
                 "NumberofAwakenings": 45,
@@ -311,8 +311,8 @@
                 "MinutesDeepSleep": 87
             },
             {
-                "StartTime": "02-03-20232:57am",
-                "EndTime": "02-03-202311:40am",
+                "StartTime": "2023-03-02T02:57:00",
+                "EndTime": "2023-03-02T11:40:00",
                 "MinutesAsleep": 441,
                 "MinutesAwake": 82,
                 "NumberofAwakenings": 46,
@@ -322,8 +322,8 @@
                 "MinutesDeepSleep": 75
             },
             {
-                "StartTime": "01-03-20232:37am",
-                "EndTime": "01-03-202310:01am",
+                "StartTime": "2023-03-01T02:37:00",
+                "EndTime": "2023-03-01T10:01:00",
                 "MinutesAsleep": 371,
                 "MinutesAwake": 73,
                 "NumberofAwakenings": 48,
@@ -600,8 +600,8 @@
         ],
         "sleep": [
             {
-                "StartTime": "14-03-20231:16am",
-                "EndTime": "14-03-202311:35am",
+                "StartTime": "2023-03-14T01:16:00",
+                "EndTime": "2023-03-14T11:35:00",
                 "MinutesAsleep": 503,
                 "MinutesAwake": 116,
                 "NumberofAwakenings": 40,
@@ -611,8 +611,8 @@
                 "MinutesDeepSleep": 84
             },
             {
-                "StartTime": "13-03-20231:00am",
-                "EndTime": "13-03-202311:38am",
+                "StartTime": "2023-03-13T01:00:00",
+                "EndTime": "2023-03-13T11:38:00",
                 "MinutesAsleep": 536,
                 "MinutesAwake": 102,
                 "NumberofAwakenings": 55,
@@ -622,8 +622,8 @@
                 "MinutesDeepSleep": 126
             },
             {
-                "StartTime": "12-03-20234:00am",
-                "EndTime": "12-03-20239:09am",
+                "StartTime": "2023-03-12T04:00:00",
+                "EndTime": "2023-03-12T09:09:00",
                 "MinutesAsleep": 255,
                 "MinutesAwake": 54,
                 "NumberofAwakenings": 11,
@@ -633,8 +633,8 @@
                 "MinutesDeepSleep": 66
             },
             {
-                "StartTime": "11-03-20234:44am",
-                "EndTime": "11-03-202311:00am",
+                "StartTime": "2023-03-11T04:44:00",
+                "EndTime": "2023-03-11T11:00:00",
                 "MinutesAsleep": 314,
                 "MinutesAwake": 62,
                 "NumberofAwakenings": 31,
@@ -644,8 +644,8 @@
                 "MinutesDeepSleep": 72
             },
             {
-                "StartTime": "09-03-202311:34pm",
-                "EndTime": "10-03-202310:41am",
+                "StartTime": "2023-03-09T23:34:00",
+                "EndTime": "2023-03-10T10:41:00",
                 "MinutesAsleep": 562,
                 "MinutesAwake": 105,
                 "NumberofAwakenings": 53,
@@ -655,8 +655,8 @@
                 "MinutesDeepSleep": 85
             },
             {
-                "StartTime": "09-03-202312:56am",
-                "EndTime": "09-03-20238:29am",
+                "StartTime": "2023-03-09T00:56:00",
+                "EndTime": "2023-03-09T08:29:00",
                 "MinutesAsleep": 381,
                 "MinutesAwake": 72,
                 "NumberofAwakenings": 40,
@@ -666,8 +666,8 @@
                 "MinutesDeepSleep": 70
             },
             {
-                "StartTime": "08-03-20232:15am",
-                "EndTime": "08-03-202311:50am",
+                "StartTime": "2023-03-08T02:15:00",
+                "EndTime": "2023-03-08T11:50:00",
                 "MinutesAsleep": 485,
                 "MinutesAwake": 90,
                 "NumberofAwakenings": 44,
@@ -677,8 +677,8 @@
                 "MinutesDeepSleep": 105
             },
             {
-                "StartTime": "07-03-20232:45am",
-                "EndTime": "07-03-20239:59am",
+                "StartTime": "2023-03-07T02:45:00",
+                "EndTime": "2023-03-07T09:59:00",
                 "MinutesAsleep": 364,
                 "MinutesAwake": 69,
                 "NumberofAwakenings": 26,
@@ -688,8 +688,8 @@
                 "MinutesDeepSleep": 60
             },
             {
-                "StartTime": "06-03-202312:15am",
-                "EndTime": "06-03-202310:40am",
+                "StartTime": "2023-03-06T00:15:00",
+                "EndTime": "2023-03-06T10:40:00",
                 "MinutesAsleep": 528,
                 "MinutesAwake": 97,
                 "NumberofAwakenings": 51,
@@ -699,8 +699,8 @@
                 "MinutesDeepSleep": 96
             },
             {
-                "StartTime": "05-03-202312:37am",
-                "EndTime": "05-03-20238:56am",
+                "StartTime": "2023-03-05T00:37:00",
+                "EndTime": "2023-03-05T08:56:00",
                 "MinutesAsleep": 430,
                 "MinutesAwake": 69,
                 "NumberofAwakenings": 39,
@@ -710,8 +710,8 @@
                 "MinutesDeepSleep": 84
             },
             {
-                "StartTime": "04-03-202312:18am",
-                "EndTime": "04-03-20239:24am",
+                "StartTime": "2023-03-04T00:18:00",
+                "EndTime": "2023-03-04T09:24:00",
                 "MinutesAsleep": 469,
                 "MinutesAwake": 77,
                 "NumberofAwakenings": 41,
@@ -721,8 +721,8 @@
                 "MinutesDeepSleep": 66
             },
             {
-                "StartTime": "03-03-20233:25am",
-                "EndTime": "03-03-202311:53am",
+                "StartTime": "2023-03-03T03:25:00",
+                "EndTime": "2023-03-03T11:53:00",
                 "MinutesAsleep": 429,
                 "MinutesAwake": 79,
                 "NumberofAwakenings": 45,
@@ -732,8 +732,8 @@
                 "MinutesDeepSleep": 87
             },
             {
-                "StartTime": "02-03-20232:57am",
-                "EndTime": "02-03-202311:40am",
+                "StartTime": "2023-03-02T02:57:00",
+                "EndTime": "2023-03-02T11:40:00",
                 "MinutesAsleep": 441,
                 "MinutesAwake": 82,
                 "NumberofAwakenings": 46,
@@ -743,8 +743,8 @@
                 "MinutesDeepSleep": 75
             },
             {
-                "StartTime": "01-03-20232:37am",
-                "EndTime": "01-03-202310:01am",
+                "StartTime": "2023-03-01T02:37:00",
+                "EndTime": "2023-03-01T10:01:00",
                 "MinutesAsleep": 371,
                 "MinutesAwake": 73,
                 "NumberofAwakenings": 48,

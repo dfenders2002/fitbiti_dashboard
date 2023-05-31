@@ -19,7 +19,7 @@
         </li>
         <li>
           <label>
-            <span>Blabla data</span>
+            <span>Activity data</span>
             <input type="checkbox" v-model="exportOptions.productData" class="checkbox" />
           </label>
         </li>
@@ -32,34 +32,35 @@
 
 
   
-  <script lang="ts">
+<script lang="ts">
 import SideBar from '@/components/SideBar.vue';
-  export default {
+export default {
   components: { SideBar },
-    data() {
-      return {
-        exportOptions: {
-          healthData: false,
-          customerData: false,
-          productData: false,
-        },
-      };
-    },
-    methods: {
-      exportData() {
-        // Add logic to export selected data here
-        console.log('Exporting data...');
+  data() {
+    return {
+      exportOptions: {
+        healthData: false,
+        customerData: false,
+        productData: false,
       },
+    };
+  },
+  methods: {
+    exportData() {
+      // Add logic to export selected data here
+      console.log('Exporting data...');
     },
-  };
-  </script>
+  },
+};
+</script>
   
-  <style scoped>
+<style scoped>
 .page {
   display: flex;
   flex-grow: 1;
   flex-direction: column;
 }
+
 .adduser {
   display: flex;
   flex-direction: column;
@@ -90,7 +91,8 @@ import SideBar from '@/components/SideBar.vue';
 h1 {
   margin-bottom: 1rem;
 }
-p{
+
+p {
   font-size: 18px;
 }
 
