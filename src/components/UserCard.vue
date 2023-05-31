@@ -3,10 +3,10 @@
     <font-awesome-icon icon="user" class="user-icon" />
     <div class="user-info">
       <h2 class="name">{{ user.pid }}</h2>
-      <p class="text">BodyFat %: {{ user.body_fat_percentage }}</p>
-      <p class="text">Height: {{ user.height }} cm</p>
-      <p class="text">Weight: {{ user.weight }} kg</p>
-      <p class="text">ziekte: {{ user.disease }}</p>
+      <p class="text"> Leeftijd: {{ user.age }}</p>
+      <p class="text">Lengte: {{ user.height }} cm</p>
+      <p class="text">Gewicht: {{ user.weight }} kg</p>
+      <p class="text">Ziekte: {{ user.disease }}</p>
     </div>
   </div>
 </template>

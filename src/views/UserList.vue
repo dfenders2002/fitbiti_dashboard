@@ -17,18 +17,10 @@ import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import UserCard from '../components/UserCard.vue'
 import SideBar from '@/components/SideBar.vue';
+import usersData from "../../mockdata.json"
 
 const router = useRouter();
-const users = ref([
-  { pid: 'PID123456789', name: 'George Junior', age: 23, height: 175, weight: 69, disease: 'aids' },
-  { pid: 'PID987654321', name: 'Emma Johnson', age: 28, height: 175, weight: 62, disease: 'kanker' },
-  { pid: 'PID456789123', name: 'Liam Brown', age: 41, height: 188, weight: 90, disease: 'ebola' },
-  { pid: 'PID789123456', name: 'Ava Davis', age: 36, height: 163, weight: 55, disease: 'kanker' },
-  { pid: 'PID111222333', name: 'Sophia Smith', age: 32, height: 170, weight: 60, disease: 'diabetes' },
-  { pid: 'PID444555666', name: 'Noah Wilson', age: 45, height: 180, weight: 85, disease: 'kanker' },
-  { pid: 'PID777888999', name: 'Olivia Taylor', age: 19, height: 160, weight: 50, disease: 'astma' },
-  // voeg hier meer gebruikers toe...
-]);
+const users = ref(usersData);
 
 
 const searchTerm = ref('');

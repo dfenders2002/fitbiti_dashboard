@@ -1,14 +1,14 @@
 <template>
-    <div class="steps-card">
-      <div class="steps-title">Steps:</div>
-      <div class="steps-chart-container">
-        <apexchart type="radialBar" :options="chartOptions" :series="series" />
-      </div>
+  <div class="steps-card">
+    <div class="steps-title">Steps:</div>
+    <div class="steps-chart-container">
+      <apexchart type="radialBar" :options="chartOptions" :series="series" />
     </div>
-  </template>
-  <script>
-  import VueApexCharts from 'vue3-apexcharts';
-  
+  </div>
+</template>
+<script>
+import VueApexCharts from 'vue3-apexcharts';
+
 export default {
   name: 'StepsCard',
   components: {
@@ -87,9 +87,9 @@ export default {
   },
 };
 
-  </script>
+</script>
   
-  <style scoped>
+<style scoped>
 .steps-card {
   background-color: #2d363d;
   border-radius: 10px;
@@ -112,6 +112,5 @@ export default {
   display: flex;
   align-items: center;
 }
-
 </style>
   

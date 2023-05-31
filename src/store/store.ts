@@ -3,6 +3,7 @@ import { createStore, useStore as vuexUseStore } from 'vuex';
 export const store = createStore({
   state: {
     isLoggedIn: false,
+    activeItem: null,
     // add other state properties here...
   },
   mutations: {
@@ -11,6 +12,9 @@ export const store = createStore({
     },
     logout(state) {
       state.isLoggedIn = false;
+    },
+    setActiveItem(state, item) {
+      state.activeItem = item;
     },
     // add other mutations here...
   },
@@ -23,9 +27,9 @@ export const store = createStore({
 });
 
 store.subscribe((mutation, state) => {
-    if (mutation.type === 'login' || mutation.type === 'logout')  { 
-        console.log('isLoggedIn changed to ' + state.isLoggedIn);
-    }
+  if (mutation.type === 'login' || mutation.type === 'logout') {
+    console.log('isLoggedIn changed to ' + state.isLoggedIn);
+  }
 });
 
 export function useStore() {

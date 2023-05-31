@@ -1,106 +1,154 @@
 <template>
-    <div class="card">
-      <div class="card-header">
-        <h2 class="card-title">Heartbeat</h2>
-      </div>
-      <div class="card-body">
-        <apexchart type="line" :options="chartOptions" :series="chartSeries"></apexchart>
-      </div>
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">Heart Rate</h2>
     </div>
-  </template>
-  
-  <script>
-  import VueApexCharts from 'vue3-apexcharts';
-  
-  export default {
-    name: 'HeartBeatCard',
-    components: {
-      apexchart: VueApexCharts,
+    <div class="card-body">
+      <div ref="chartContainer"></div>
+    </div>
+  </div>
+</template>
+
+<script>
+import ApexCharts from "apexcharts";
+
+export default {
+  props: {
+    data: {
+      type: Array,
+      required: true,
     },
-    data() {
-      return {
-        chartOptions: {
-          chart: {
-            toolbar: {
-              show: false,
-            },
-            height: '100%',
-            animations: {
-              enabled: false,
-            },
-            zoom: {
-              enabled: false,
-            },
-            foreColor: '#fff',
-          },
-          xaxis: {
-            categories: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
-            labels: {
-              style: {
-                colors: '#fff',
-              },
-            },
-          },
-          yaxis: {
-            labels: {
-              style: {
-                colors: '#fff',
-              },
-            },
-          },
-          stroke: {
-            curve: 'smooth',
-            colors: ['#e82f52'],
-            width: 3,
-          },
-          fill: {
-            type: 'solid',
-            colors: ['#2d363d'],
+  },
+  data() {
+    return {
+      chartOptions: {
+        chart: {
+          type: "bar",
+          toolbar: {
+            show: false,
           },
         },
-        chartSeries: [
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            stacked: false,
+          },
+        },
+        xaxis: {
+          categories: [], // Will be populated dynamically
+          labels: {
+            style: {
+              colors: "#fff",
+            },
+          },
+        },
+        yaxis: {
+          min: 0,
+          max: 160,
+          title: {
+            text: "BPM",
+          },
+        },
+        legend: {
+          position: "top",
+          horizontalAlign: "center",
+          offsetX: 0,
+          offsetY: 10,
+        },
+        series: [
           {
-            name: 'Heartbeat',
-            data: [70, 80, 85, 75, 90, 80, 85, 70, 80, 85, 75, 90, 80, 85, 70, 80, 85, 75, 90, 80, 85, 70, 80, 85],
+            name: "Active Heart Rate",
+            data: [],
+          },
+          {
+            name: "Average Heart Rate",
+            data: [],
+          },
+          {
+            name: "Resting Heart Rate",
+            data: [],
           },
         ],
-      };
+      },
+      chart: null,
+    };
+  },
+  mounted() {
+    this.prepareChartData();
+    this.$nextTick(() => {
+      this.renderChart();
+    });
+  },
+  beforeUnmount() {
+    if (this.chart) {
+      this.chart.destroy();
+      this.chart = null;
+    }
+  },
+  watch: {
+    data: {
+      immediate: true,
+      handler(newData) {
+        this.prepareChartData();
+        this.$nextTick(() => {
+          this.renderChart();
+        });
+      },
     },
-  };
-  </script>
-  
-  <style scoped>
-  .card {
-    background-color: #2d363d;
-    border-radius: 10px;
-    padding: 20px;
-  }
-  
-  .card-header {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .card-title {
-    margin: 0;
-    font-size: 20px;
-    font-weight: 600;
-    color: #fff;
-  }
-  
-  .card-body {
-    height: 100%;
-  }
-  
-  .apexcharts-tooltip {
-    font-size: 14px;
-  }
-  
-  .apexcharts-xaxistooltip {
-    font-size: 14px;
-  }
-  </style>
-  
+  },
+  methods: {
+    prepareChartData() {
+      const categories = ["Active", "Average", "Resting"];
+      const activeHeartRateData = [];
+      const averageHeartRateData = [];
+      const restingHeartRateData = [];
+
+      if (this.data.length > 0) {
+        const activeSum = this.data.reduce((sum, item) => sum + item.Active_heartrate, 0);
+        const averageSum = this.data.reduce((sum, item) => sum + item.Average_heartrate, 0);
+        const restingSum = this.data.reduce((sum, item) => sum + item.Resting_heartrate, 0);
+        const averageActive = activeSum / this.data.length;
+        const averageAverage = averageSum / this.data.length;
+        const averageResting = restingSum / this.data.length;
+
+        activeHeartRateData.push(averageActive.toFixed(2));
+        averageHeartRateData.push(averageAverage.toFixed(2));
+        restingHeartRateData.push(averageResting.toFixed(2));
+      }
+
+      this.chartOptions.xaxis.categories = categories;
+      this.chartOptions.series[0].data = activeHeartRateData;
+      this.chartOptions.series[1].data = averageHeartRateData;
+      this.chartOptions.series[2].data = restingHeartRateData;
+    },
+    renderChart() {
+      if (this.$refs.chartContainer) {
+        if (this.chart) {
+          this.chart.destroy();
+        }
+        this.chart = new ApexCharts(this.$refs.chartContainer, this.chartOptions);
+        this.chart.render();
+      }
+    },
+  },
+};
+</script>
+
+<style>
+.card {
+  margin-bottom: 20px;
+}
+
+.card-header {
+  background-color: #2d363d;
+  padding: 10px;
+}
+
+.card-title {
+  margin: 0;
+}
+
+.card-body {
+  padding: 20px;
+}
+</style>
