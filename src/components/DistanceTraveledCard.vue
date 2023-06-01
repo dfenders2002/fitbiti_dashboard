@@ -1,6 +1,6 @@
 <template>
   <div class="distance-card">
-    <div class="distance-title">Afstand gereisd</div>
+    <div class="distance-title">Afstand afgelegd</div>
     <div class="distance-chart-container">
       <apexchart type="bar" height="240" :options="chartOptions" :series="series" />
     </div>

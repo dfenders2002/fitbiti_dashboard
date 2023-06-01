@@ -13,8 +13,8 @@
       </div>
       <h1 class="week-view-header">Week {{ selectedWeek }} - week gemiddelde</h1>
       <div class="week-view">
-        <button class="week-button" @click="selectPreviousWeek">Prev Week</button>
-        <button class="week-button" @click="selectNextWeek" v-if="selectedWeek < currentWeek">Next Week</button>
+        <button class="week-button" @click="selectPreviousWeek">Vorige Week</button>
+        <button class="week-button" @click="selectNextWeek" :disabled="selectedWeek >= currentWeek">Volgende Week</button>
       </div>
       <div class="grid-container-data">
         <StepsCard
@@ -143,6 +143,11 @@ function selectNextWeek() {
 }
 .week-view {
   margin-bottom: 10px;
+}
+
+.week-button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 

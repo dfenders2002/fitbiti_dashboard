@@ -9,9 +9,18 @@
           <img class="heartbeat-img" src="@/data/hart.png" alt="Hartslag afbeelding" />
         </div>
         <div class="heartbeat-text">
-          <p>Average Heart Rate: {{ averageHeartRateInRest }}</p>
-          <p>Max Heart Rate: {{ maxHeartRateInRest }}</p>
-          <p>Min Heart Rate: {{ minHeartRateInRest }}</p>
+          <p>
+            <span class="value-background">{{ averageHeartRateInRest }}</span>
+            Gemiddelde rusthartslag
+          </p>
+          <p>
+            <span class="value-background">{{ maxHeartRateInRest }}</span>
+            Maximale hartslag
+          </p>
+          <p>
+            <span class="value-background">{{ minHeartRateInRest }}</span>
+            Minimale hartslag
+          </p>
         </div>
       </div>
     </div>
@@ -62,6 +71,12 @@ export default {
 
 .card-body {
   height: 100%;
+}
+
+.value-background {
+  background-color: #222;
+  padding: 5px;
+  border-radius: 4px;
 }
 
 .heartbeat-content {

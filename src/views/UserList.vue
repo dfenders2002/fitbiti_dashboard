@@ -10,9 +10,9 @@
       <UserCard v-for="user in displayedUsers" :key="user.pid" :user="user" @click="goToDashboard(user.pid)" />
     </div>
     <div class="pagination">
-      <button :disabled="currentPage === 1" @click="previousPage">Vorige</button>
+      <button :disabled="currentPage === 1" class="pagination-button" @click="previousPage">Vorige</button>
       <span>{{ currentPage }} van {{ totalPages }}</span>
-      <button :disabled="currentPage === totalPages" @click="nextPage">Volgende</button>
+      <button :disabled="currentPage === totalPages" class="pagination-button" @click="nextPage">Volgende</button>
     </div>
   </div>
 </template>
@@ -137,27 +137,40 @@ function previousPage() {
 .grid-container-users {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  max-height: 600px;
+  max-height: 80%;
   overflow-y: auto;
   grid-gap: 20px;
 }
+
+.pagination span {
+  color: #fff;
+  font-size: 18px;
+}
+
 .pagination {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1rem;
-  }
-  .pagination button {
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-    border: none;
-    background-color: #ddd;
-    color: #555;
-    cursor: pointer;
-  }
-  .pagination button:disabled {
-    background-color: #eee;
-    color: #ccc;
-    cursor: default;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.pagination button {
+  background-color: #2d363d;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 22px;
+  margin-top: 0px;
+}
+
+.pagination button:disabled {
+  background-color: #2d363d;
+  opacity: 0.5;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
 </style>
