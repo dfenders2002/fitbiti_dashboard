@@ -1,93 +1,119 @@
 <template>
   <div class="distance-card">
-    <div class="distance-title">Afstand afgelegd</div>
+    <div class="distance-title">Afstand gereisd</div>
     <div class="distance-chart-container">
-      <apexchart type="radialBar" :options="chartOptions" :series="series" />
+      <apexchart type="bar" height="240" :options="chartOptions" :series="series" />
     </div>
   </div>
 </template>
+
 <script>
 import VueApexCharts from 'vue3-apexcharts';
 
 export default {
-  name: 'DistanceTraveledCard',
+  name: 'DistanceTraveldCard',
   components: {
     apexchart: VueApexCharts,
   },
+  props: {
+    averageDistance: {
+      type: Number,
+      required: true,
+    },
+    maxDistance: {
+      type: Number,
+      required: true,
+    },
+    minDistance: {
+      type: Number,
+      required: true,
+    },
+  },
   data() {
     return {
-      series: [40],
+      series: [{
+        name: 'Afstand',
+        data: [this.minDistance, this.averageDistance, this.maxDistance]
+      }],
       chartOptions: {
         chart: {
+          type: 'bar',
           height: 350,
-          type: 'radialBar',
-          toolbar: {
-            show: false,
-          },
         },
         plotOptions: {
-          radialBar: {
-            hollow: {
-              size: '60%',
-            },
+          bar: {
+            horizontal: false,
+            columnWidth: '55%',
+            endingShape: 'rounded',
             dataLabels: {
-              show: true,
-              name: {
-                offsetY: -10,
-                fontSize: '22px',
-                color: '#888',
-                fontFamily: 'Roboto, sans-serif',
-              },
-              value: {
-                color: '#fff',
-                fontSize: '36px',
-                fontFamily: 'Roboto, sans-serif',
-                fontWeight: 'bold',
-                offsetY: 5,
-              },
-              total: {
-                show: true,
-                label: 'Kilometers',
-                color: '#888',
-                formatter: function () {
-                  return '10';
-                },
-                fontFamily: 'Roboto, sans-serif',
-                fontSize: '22px',
-                offsetY: -10,
-              },
+              position: 'top',
             },
-            track: {
-              background: '#eee',
-              strokeWidth: '90%',
-              margin: 5,
-            },
-            data: [53],
           },
+        },
+        dataLabels: {
+          enabled: true,
+          formatter: function (val) {
+            return val + " km";
+          },
+          offsetY: -20,
+          style: {
+            fontSize: '12px',
+            colors: ["#ffffff"]
+          }
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ['transparent']
+        },
+        xaxis: {
+          categories: ['Minimaal', 'Gemiddeld', 'Maximaal'],
+          labels: {
+            style: {
+              colors: '#fff'
+            }
+          }
+        },
+        yaxis: {
+          title: {
+            text: 'Afstand (km)',
+            style: {
+              color: '#fff'
+            }
+          },
+          labels: {
+            style: {
+              colors: '#fff'
+            }
+          }
         },
         fill: {
-          type: 'gradient',
-          gradient: {
-            shade: 'dark',
-            type: 'horizontal',
-            shadeIntensity: 0.5,
-            gradientToColors: ['#E58C21', '#F5F508'],
-            inverseColors: false,
-            opacityFrom: 1,
-            opacityTo: 1,
-            stops: [0, 100],
-          },
+          opacity: 1
         },
-
-        stroke: {
-          lineCap: 'round',
-        },
-        labels: ['Kilometers'],
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return val + " km"
+            }
+          }
+        }
       },
     };
   },
+  watch: {
+    averageDistance(newVal) {
+      this.series[0].data[1] = newVal;
+    },
+    maxDistance(newVal) {
+      this.series[0].data[2] = newVal;
+    },
+    minDistance(newVal) {
+      this.series[0].data[0] = newVal;
+    },
+  },
 };
 </script>
+
 <style scoped>
 .distance-card {
   background-color: #2d363d;
@@ -105,11 +131,11 @@ export default {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
+  color: white;
 }
 
 .distance-chart-container {
-  display: flex;
-  align-items: center;
-  position: relative;
+  width: 100%;
+  height: 300px;
 }
-</style> 
+</style>

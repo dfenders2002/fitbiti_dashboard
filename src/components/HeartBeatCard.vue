@@ -1,106 +1,86 @@
 <template>
-    <div class="card">
-      <div class="card-header">
-        <h2 class="card-title">Hartslag</h2>
-      </div>
-      <div class="card-body">
-        <apexchart type="line" :options="chartOptions" :series="chartSeries"></apexchart>
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">Hartslag</h2>
+    </div>
+    <div class="card-body">
+      <div class="heartbeat-content">
+        <div class="heartbeat-image">
+          <img class="heartbeat-img" src="@/data/hart.png" alt="Hartslag afbeelding" />
+        </div>
+        <div class="heartbeat-text">
+          <p>Average Heart Rate: {{ averageHeartRateInRest }}</p>
+          <p>Max Heart Rate: {{ maxHeartRateInRest }}</p>
+          <p>Min Heart Rate: {{ minHeartRateInRest }}</p>
+        </div>
       </div>
     </div>
-  </template>
-  
-  <script>
-  import VueApexCharts from 'vue3-apexcharts';
-  
-  export default {
-    name: 'HeartBeatCard',
-    components: {
-      apexchart: VueApexCharts,
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HeartBeatCard',
+  props: {
+    averageHeartRateInRest: {
+      type: Number,
+      required: true,
     },
-    data() {
-      return {
-        chartOptions: {
-          chart: {
-            toolbar: {
-              show: false,
-            },
-            height: '100%',
-            animations: {
-              enabled: false,
-            },
-            zoom: {
-              enabled: false,
-            },
-            foreColor: '#fff',
-          },
-          xaxis: {
-            categories: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
-            labels: {
-              style: {
-                colors: '#fff',
-              },
-            },
-          },
-          yaxis: {
-            labels: {
-              style: {
-                colors: '#fff',
-              },
-            },
-          },
-          stroke: {
-            curve: 'smooth',
-            colors: ['#e82f52'],
-            width: 3,
-          },
-          fill: {
-            type: 'solid',
-            colors: ['#2d363d'],
-          },
-        },
-        chartSeries: [
-          {
-            name: 'Heartbeat',
-            data: [70, 80, 85, 75, 90, 80, 85, 70, 80, 85, 75, 90, 80, 85, 70, 80, 85, 75, 90, 80, 85, 70, 80, 85],
-          },
-        ],
-      };
+    maxHeartRateInRest: {
+      type: Number,
+      required: true,
     },
-  };
-  </script>
-  
-  <style scoped>
-  .card {
-    background-color: #2d363d;
-    border-radius: 10px;
-    padding: 20px;
-  }
-  
-  .card-header {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .card-title {
-    margin: 0;
-    font-size: 20px;
-    font-weight: 600;
-    color: #fff;
-  }
-  
-  .card-body {
-    height: 100%;
-  }
-  
-  .apexcharts-tooltip {
-    font-size: 14px;
-  }
-  
-  .apexcharts-xaxistooltip {
-    font-size: 14px;
-  }
-  </style>
-  
+    minHeartRateInRest: {
+      type: Number,
+      required: true,
+    },
+  },
+};
+</script>
+
+<style scoped>
+.card {
+  background-color: #2d363d;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.card-header {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.card-body {
+  height: 100%;
+}
+
+.heartbeat-content {
+  display: flex;
+  align-items: center;
+}
+
+.heartbeat-image {
+  margin-right: 20px;
+}
+
+.heartbeat-img {
+  max-width: 300px; /* Pas de breedte aan naar wens */
+  max-height: 300px; /* Pas de hoogte aan naar wens */
+}
+
+.heartbeat-text p {
+  margin: 5px 0;
+  color: #fff;
+  font-size: 22px;
+}
+</style>

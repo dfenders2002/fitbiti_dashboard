@@ -1,95 +1,119 @@
 <template>
-    <div class="steps-card">
-      <div class="steps-title">Stappen</div>
-      <div class="steps-chart-container">
-        <apexchart type="radialBar" :options="chartOptions" :series="series" />
-      </div>
+  <div class="steps-card">
+    <div class="steps-title">Stappen</div>
+    <div class="steps-chart-container">
+      <apexchart type="bar" height="240" :options="chartOptions" :series="chartSeries" />
     </div>
-  </template>
-  <script>
-  import VueApexCharts from 'vue3-apexcharts';
-  
+  </div>
+</template>
+
+<script>
+import VueApexCharts from 'vue3-apexcharts';
+
 export default {
   name: 'StepsCard',
   components: {
     apexchart: VueApexCharts,
   },
+  props: {
+    averageSteps: {
+      type: Number,
+      required: true,
+    },
+    maxSteps: {
+      type: Number,
+      required: true,
+    },
+    minSteps: {
+      type: Number,
+      required: true,
+    },
+  },
   data() {
     return {
-      series: [67],
+      chartSeries: [
+        {
+          name: 'Minimaal',
+          data: [this.minSteps],
+        },
+        {
+          name: 'Gemiddeld',
+          data: [this.averageSteps],
+        },
+        {
+          name: 'Maximaal',
+          data: [this.maxSteps],
+        },
+      ],
       chartOptions: {
         chart: {
-          height: 350,
-          type: 'radialBar',
+          type: 'bar',
+          height: 20,
           toolbar: {
             show: false,
           },
         },
         plotOptions: {
-          radialBar: {
-            hollow: {
-              size: '60%',
-            },
-            dataLabels: {
-              show: true,
-              name: {
-                offsetY: -10,
-                fontSize: '22px',
-                color: '#888',
-                fontFamily: 'Roboto, sans-serif',
-              },
-              value: {
-                color: '#fff',
-                fontSize: '36px',
-                fontFamily: 'Roboto, sans-serif',
-                fontWeight: 'bold',
-                offsetY: 5,
-              },
-              total: {
-                show: true,
-                label: 'Steps',
-                color: '#888',
-                formatter: function () {
-                  return '4000';
-                },
-                fontFamily: 'Roboto, sans-serif',
-                fontSize: '22px',
-                offsetY: -10,
-              },
-            },
-            track: {
-              background: '#eee',
-              strokeWidth: '90%',
-              margin: 5,
-            },
-            data: [40],
+          bar: {
+            borderRadius: 4,
+            horizontal: true,
+            barHeight: '80%',
           },
         },
-        fill: {
-          type: 'gradient',
-          gradient: {
-            shade: 'dark',
-            type: 'horizontal',
-            shadeIntensity: 0.5,
-            gradientToColors: ['#ABE5A1'],
-            inverseColors: false,
-            opacityFrom: 1,
-            opacityTo: 1,
-            stops: [0, 100],
+        dataLabels: {
+          enabled: false,
+        },
+        xaxis: {
+          categories: ['Steps'],
+          labels: {
+            style: {
+              colors: ['#fff'],
+              fontSize: '14px',
+              fontWeight: 0,
+            },
           },
         },
-        stroke: {
-          lineCap: 'round',
+        colors: ['#FF4560', '#008FFB', '#00E396'],
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return val;
+            },
+          },
         },
-        labels: ['Steps'],
+        legend: {
+          labels: {
+            colors: ['#fff'],
+            useSeriesColors: false,
+          },
+        },
       },
     };
   },
+  watch: {
+    averageSteps: {
+      handler(newVal) {
+        this.chartSeries[1].data = [newVal];
+      },
+      immediate: true,
+    },
+    maxSteps: {
+      handler(newVal) {
+        this.chartSeries[2].data = [newVal];
+      },
+      immediate: true,
+    },
+    minSteps: {
+      handler(newVal) {
+        this.chartSeries[0].data = [newVal];
+      },
+      immediate: true,
+    },
+  },
 };
+</script>
 
-  </script>
-  
-  <style scoped>
+<style scoped>
 .steps-card {
   background-color: #2d363d;
   border-radius: 10px;
@@ -106,13 +130,11 @@ export default {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
+  color: white;
 }
 
 .steps-chart-container {
-  display: flex;
-  align-items: center;
-  position: relative;
+  width: 100%;
+  height: 300px;
 }
-
 </style>
-  

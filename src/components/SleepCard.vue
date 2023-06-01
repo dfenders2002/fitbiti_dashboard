@@ -1,83 +1,245 @@
 <template>
-    <div class="card">
-      <div class="card-header">
-        <h2 class="card-title">Slaap</h2>
-      </div>
-      <div class="card-body">
-        <apexchart type="bar" :options="chartOptions" :series="chartSeries"></apexchart>
-      </div>
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">Slaap</h2>
     </div>
-  </template>
-  <script>
-  import VueApexCharts from 'vue3-apexcharts';
-  
-  export default {
-    name: 'SleepCard',
-    components: {
-      apexchart: VueApexCharts,
+    <div class="card-body">
+      <apexchart type="bar" :options="chartOptions" :series="chartSeries"></apexchart>
+    </div>
+  </div>
+</template>
+
+<script>
+import VueApexCharts from 'vue3-apexcharts';
+
+export default {
+  name: 'SleepCard',
+  components: {
+    apexchart: VueApexCharts,
+  },
+  props: {
+    averageMinutesAwake: {
+      type: Number,
+      required: true,
     },
-    data() {
-      return {
-        chartOptions: {
-          chart: {
-            toolbar: {
-              show: false,
-            },
-            height: '100%',
-            animations: {
-              enabled: false,
-            },
-            zoom: {
-              enabled: false,
-            },
-            foreColor: '#fff',
+    maxMinutesAwake: {
+      type: Number,
+      required: true,
+    },
+    minMinutesAwake: {
+      type: Number,
+      required: true,
+    },
+    averageMinutesREMSleep: {
+      type: Number,
+      required: true,
+    },
+    maxMinutesREMSleep: {
+      type: Number,
+      required: true,
+    },
+    minMinutesREMSleep: {
+      type: Number,
+      required: true,
+    },
+    averageMinutesLightSleep: {
+      type: Number,
+      required: true,
+    },
+    maxMinutesLightSleep: {
+      type: Number,
+      required: true,
+    },
+    minMinutesLightSleep: {
+      type: Number,
+      required: true,
+    },
+    averageMinutesDeepSleep: {
+      type: Number,
+      required: true,
+    },
+    maxMinutesDeepSleep: {
+      type: Number,
+      required: true,
+    },
+    minMinutesDeepSleep: {
+      type: Number,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      chartOptions: {
+        chart: {
+          type: 'bar',
+          height: 350,
+          stacked: true,
+          toolbar: {
+            show: true,
           },
-          xaxis: {
-            categories: ['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'],
-            labels: {
+          zoom: {
+            enabled: true,
+          },
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            borderRadius: 10,
+            dataLabels: {
+              position: 'top',
+              maxItems: 2,
+              hideOverflowingLabels: false,
               style: {
-                colors: '#fff',
+                fontSize: '13px',
+                fontWeight: 900,
+                colors: ['#ffffff'],
               },
-            },
-          },
-          yaxis: {
-            labels: {
-              style: {
-                colors: '#fff',
-              },
-            },
-          },
-          plotOptions: {
-            bar: {
-              horizontal: false,
-              columnWidth: '70%',
-              endingShape: 'rounded',
-            },
-          },
-          fill: {
-            type: 'gradient',
-            gradient: {
-              shade: 'dark',
-              type: 'vertical',
-              shadeIntensity: 1,
-              gradientToColors: ['#43cea2'],
-              inverseColors: false,
-              opacityFrom: 1,
-              opacityTo: 1,
-              stops: [0, 100],
             },
           },
         },
-        chartSeries: [
-          {
-            name: 'Uren geslapen',
-            data: [7, 6, 5.5, 6.5, 7.5, 8, 9],
+        dataLabels: {
+          enabled: true,
+          offsetY: -20,
+          style: {
+            fontSize: '12px',
+            colors: ['#ffffff'],
           },
-        ],
-      };
+        },
+        xaxis: {
+          categories: ['Minimaal', 'Gemiddeld', 'Maximaal'],
+          labels: {
+            style: {
+              colors: '#fff',
+            },
+          },
+        },
+        yaxis: {
+          title: {
+            text: 'Minutes',
+            style: {
+              color: '#fff',
+            },
+          },
+          labels: {
+            style: {
+              colors: '#fff',
+            },
+          },
+        },
+        legend: {
+          position: 'right',
+          offsetY: 40,
+          labels: {
+            colors: ['#fff'],
+          },
+        },
+        fill: {
+          opacity: 1,
+        },
+      },
+      chartSeries: [],
+    };
+  },
+  watch: {
+    averageMinutesAwake: {
+      immediate: true,
+      handler(value) {
+        this.updateChartSeries();
+      },
     },
-  };
-  </script>
+    maxMinutesAwake: {
+      immediate: true,
+      handler(value) {
+        this.updateChartSeries();
+      },
+    },
+    minMinutesAwake: {
+      immediate: true,
+      handler(value) {
+        this.updateChartSeries();
+      },
+    },
+    averageMinutesREMSleep: {
+      immediate: true,
+      handler(value) {
+        this.updateChartSeries();
+      },
+    },
+    maxMinutesREMSleep: {
+      immediate: true,
+      handler(value) {
+        this.updateChartSeries();
+      },
+    },
+    minMinutesREMSleep: {
+      immediate: true,
+      handler(value) {
+        this.updateChartSeries();
+      },
+    },
+    averageMinutesLightSleep: {
+      immediate: true,
+      handler(value) {
+        this.updateChartSeries();
+      },
+    },
+    maxMinutesLightSleep: {
+      immediate: true,
+      handler(value) {
+        this.updateChartSeries();
+      },
+    },
+    minMinutesLightSleep: {
+      immediate: true,
+      handler(value) {
+        this.updateChartSeries();
+      },
+    },
+    averageMinutesDeepSleep: {
+      immediate: true,
+      handler(value) {
+        this.updateChartSeries();
+      },
+    },
+    maxMinutesDeepSleep: {
+      immediate: true,
+      handler(value) {
+        this.updateChartSeries();
+      },
+    },
+    minMinutesDeepSleep: {
+      immediate: true,
+      handler(value) {
+        this.updateChartSeries();
+      },
+    },
+  },
+  methods: {
+    updateChartSeries() {
+      this.chartSeries = [
+        {
+          name: 'Minuten wakker',
+          data: [this.minMinutesAwake, this.averageMinutesAwake, this.maxMinutesAwake],
+        },
+        {
+          name: 'Minuten REM slaap',
+          data: [this.minMinutesREMSleep, this.averageMinutesREMSleep, this.maxMinutesREMSleep],
+        },
+        {
+          name: 'Minuten lichte slaap',
+          data: [this.minMinutesLightSleep, this.averageMinutesLightSleep, this.maxMinutesLightSleep],
+        },
+        {
+          name: 'Minuten diepe slaap',
+          data: [this.minMinutesDeepSleep, this.averageMinutesDeepSleep, this.maxMinutesDeepSleep],
+        },
+      ];
+    },
+  },
+};
+</script>
+
+
   <style scoped>
   .card {
     background-color: #2d363d;
