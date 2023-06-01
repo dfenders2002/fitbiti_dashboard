@@ -2,7 +2,7 @@
   <div class="calories-card">
     <div class="calories-title">Calorieën verbrand</div>
     <div class="calories-chart-container">
-      <apexchart type="bar" height="240" :options="chartOptions" :series="series" />
+      <apexchart type="bar" height="240" :options="chartOptions" :series="chartSeries" />
     </div>
   </div>
 </template>
@@ -31,89 +31,91 @@ export default {
   },
   data() {
     return {
-      series: [{
-        name: 'Calories',
-        data: [this.minCalories, this.averageCalories, this.maxCalories]
-      }],
+      chartSeries: [
+        {
+          name: 'Minimaal',
+          data: [this.minCalories],
+        },
+        {
+          name: 'Gemiddeld',
+          data: [this.averageCalories],
+        },
+        {
+          name: 'Maximaal',
+          data: [this.maxCalories],
+        },
+      ],
       chartOptions: {
         chart: {
           type: 'bar',
-          height: 350,
+          height: 20,
+          toolbar: {
+            show: false,
+          },
         },
         plotOptions: {
           bar: {
-            horizontal: false,
-            columnWidth: '55%',
-            endingShape: 'rounded',
-            dataLabels: {
-              position: 'top',
-            },
+            borderRadius: 4,
+            horizontal: true,
+            barHeight: '80%',
           },
         },
         dataLabels: {
-          enabled: true,
-          formatter: function (val) {
-            return val + " cal";
-          },
-          offsetY: -20,
-          style: {
-            fontSize: '12px',
-            colors: ["#ffffff"]
-          }
-        },
-        stroke: {
-          show: true,
-          width: 2,
-          colors: ['transparent']
+          enabled: false,
         },
         xaxis: {
-          categories: ['Minimaal', 'Gemiddeld', 'Maximaal'],
+          categories: [''],
           labels: {
             style: {
-              colors: '#fff'
-            }
-          }
-        },
-        yaxis: {
-          title: {
-            text: 'Calories',
-            style: {
-              color: '#fff'
-            }
+              colors: ['#fff'],
+              fontSize: '14px',
+              fontWeight: 0,
+            },
+            formatter: function (value) {
+              return value + ' kcal';
+            },
           },
-          labels: {
-            style: {
-              colors: '#fff'
-            }
-          }
         },
-        fill: {
-          opacity: 1
-        },
+        colors: ['#00E396', '#feb019', '#FF4560'],// ['#ca6702', '#bb3e03', '#ae2012'],
         tooltip: {
+          theme: 'dark',
           y: {
             formatter: function (val) {
-              return val + " cal"
-            }
-          }
-        }
+              return val + ' cal';
+            },
+          },
+        },
+        legend: {
+          labels: {
+            colors: ['#fff'],
+            useSeriesColors: false,
+          },
+        },
       },
     };
   },
   watch: {
-    averageCalories(newVal) {
-      this.series[0].data[1] = newVal;
+    averageCalories: {
+      handler(newVal) {
+        this.chartSeries[1].data = [newVal];
+      },
+      immediate: true,
     },
-    maxCalories(newVal) {
-      this.series[0].data[2] = newVal;
+    maxCalories: {
+      handler(newVal) {
+        this.chartSeries[2].data = [newVal];
+      },
+      immediate: true,
     },
-    minCalories(newVal) {
-      this.series[0].data[0] = newVal;
+    minCalories: {
+      handler(newVal) {
+        this.chartSeries[0].data = [newVal];
+      },
+      immediate: true,
     },
   },
 };
 </script>
-
 
 <style scoped>
 .calories-card {

@@ -2,7 +2,7 @@
   <div class="distance-card">
     <div class="distance-title">Afstand afgelegd</div>
     <div class="distance-chart-container">
-      <apexchart type="bar" height="240" :options="chartOptions" :series="series" />
+      <apexchart type="bar" height="240" :options="chartOptions" :series="chartSeries" />
     </div>
   </div>
 </template>
@@ -31,84 +31,87 @@ export default {
   },
   data() {
     return {
-      series: [{
-        name: 'Afstand',
-        data: [this.minDistance, this.averageDistance, this.maxDistance]
-      }],
+      chartSeries: [
+        {
+          name: 'Minimaal',
+          data: [this.minDistance],
+        },
+        {
+          name: 'Gemiddeld',
+          data: [this.averageDistance],
+        },
+        {
+          name: 'Maximaal',
+          data: [this.maxDistance],
+        },
+      ],
       chartOptions: {
         chart: {
           type: 'bar',
-          height: 350,
+          height: 20,
+          toolbar: {
+            show: false,
+          },
         },
         plotOptions: {
           bar: {
-            horizontal: false,
-            columnWidth: '55%',
-            endingShape: 'rounded',
-            dataLabels: {
-              position: 'top',
-            },
+            borderRadius: 4,
+            horizontal: true,
+            barHeight: '80%',
           },
         },
         dataLabels: {
-          enabled: true,
-          formatter: function (val) {
-            return val + " km";
-          },
-          offsetY: -20,
-          style: {
-            fontSize: '12px',
-            colors: ["#ffffff"]
-          }
-        },
-        stroke: {
-          show: true,
-          width: 2,
-          colors: ['transparent']
+          enabled: false,
         },
         xaxis: {
-          categories: ['Minimaal', 'Gemiddeld', 'Maximaal'],
+          categories: [''],
           labels: {
             style: {
-              colors: '#fff'
-            }
-          }
-        },
-        yaxis: {
-          title: {
-            text: 'Afstand (km)',
-            style: {
-              color: '#fff'
-            }
+              colors: ['#fff'],
+              fontSize: '14px',
+              fontWeight: 0,
+            },
+            formatter: function (value) {
+              return value + ' km';
+            },
           },
-          labels: {
-            style: {
-              colors: '#fff'
-            }
-          }
         },
-        fill: {
-          opacity: 1
-        },
+        colors: ['#00E396', '#feb019', '#FF4560'],//['#52b788', '#40916c', '#2d6a4f'],
         tooltip: {
+          theme: 'dark',
           y: {
             formatter: function (val) {
-              return val + " km"
-            }
-          }
-        }
+              return val + ' km';
+            },
+          },
+        },
+        legend: {
+          labels: {
+            colors: ['#fff'],
+            useSeriesColors: false,
+          },
+        },
       },
     };
   },
   watch: {
-    averageDistance(newVal) {
-      this.series[0].data[1] = newVal;
+    averageDistance: {
+      handler(newVal) {
+        this.chartSeries[1].data = [newVal];
+      },
+      immediate: true,
     },
-    maxDistance(newVal) {
-      this.series[0].data[2] = newVal;
+    maxDistance: {
+      handler(newVal) {
+        this.chartSeries[2].data = [newVal];
+      },
+      immediate: true,
     },
-    minDistance(newVal) {
-      this.series[0].data[0] = newVal;
+    minDistance: {
+      handler(newVal) {
+        this.chartSeries[0].data = [newVal];
+      },
+      immediate: true,
     },
   },
 };

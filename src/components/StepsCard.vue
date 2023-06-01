@@ -64,7 +64,7 @@ export default {
           enabled: false,
         },
         xaxis: {
-          categories: ['Steps'],
+          categories: [''],
           labels: {
             style: {
               colors: ['#fff'],
@@ -73,8 +73,9 @@ export default {
             },
           },
         },
-        colors: ['#FF4560', '#008FFB', '#00E396'],
+        colors: ['#00E396', '#feb019', '#FF4560'], //['#90e0ef', '#00b4d8', '#023e8a'],
         tooltip: {
+          theme: 'dark',
           y: {
             formatter: function (val) {
               return val;

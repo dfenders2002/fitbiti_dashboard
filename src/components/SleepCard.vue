@@ -75,7 +75,7 @@ export default {
           height: 350,
           stacked: true,
           toolbar: {
-            show: true,
+            show: false,
           },
           zoom: {
             enabled: true,
@@ -99,7 +99,7 @@ export default {
         },
         dataLabels: {
           enabled: true,
-          offsetY: -20,
+          offsetY: 0,
           style: {
             fontSize: '12px',
             colors: ['#ffffff'],
@@ -115,7 +115,7 @@ export default {
         },
         yaxis: {
           title: {
-            text: 'Minutes',
+            text: '',
             style: {
               color: '#fff',
             },
@@ -123,6 +123,9 @@ export default {
           labels: {
             style: {
               colors: '#fff',
+            },
+            formatter: function (value) {
+              return value + ' min - ' + (value / 60).toFixed(1) + ' uren';
             },
           },
         },
@@ -135,6 +138,15 @@ export default {
         },
         fill: {
           opacity: 1,
+        },
+        tooltip: {
+          theme: 'dark',
+          x: {
+            show: true,
+            style: {
+              fontSize: '14px',
+            },
+          },
         },
       },
       chartSeries: [],
@@ -235,12 +247,15 @@ export default {
         },
       ];
     },
+    calculateTotal(data) {
+      return data.reduce((a, b) => a + b, 0);
+    }
   },
 };
 </script>
 
 
-  <style scoped>
+  <style>
   .card {
     background-color: #2d363d;
     border-radius: 10px;
@@ -272,4 +287,20 @@ export default {
   .apexcharts-xaxistooltip {
     font-size: 14px;
   }
+  .apexcharts-menu.apexcharts-menu-open {
+  background-color: #2d363d !important;
+}
+
+.apexcharts-menu.apexcharts-menu-open .apexcharts-menu-item {
+  background-color: #2d363d !important;
+  color: #ffffff !important;
+}
+
+.apexcharts-menu.apexcharts-menu-open .apexcharts-menu-item:hover {
+  background-color: #2d363d !important;
+  opacity: 0.6;
+  color: #ffffff !important;
+}
+
+
   </style> 
