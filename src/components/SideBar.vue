@@ -12,24 +12,6 @@
         </li>
       </router-link>
 
-      <router-link to="/addFitbit" custom v-slot="{ navigate }">
-        <li :class="{'active': activeItem === 'addFitbit'}" @click="activateAndNavigate('addFitbit', navigate)" v-if="store.state.isLoggedIn">
-          <span class="sidebar-menu-icon">
-            <font-awesome-icon icon="user-plus" />
-          </span>
-          <span class="sidebar-menu-label">Add FitBit</span>
-        </li>
-      </router-link>
-      
-      <router-link to="/export" custom v-slot="{ navigate }">
-        <li :class="{'active': activeItem === 'export'}" @click="activateAndNavigate('export', navigate)" v-if="store.state.isLoggedIn">
-          <span class="sidebar-menu-icon">
-            <font-awesome-icon icon="file-export" />
-          </span>
-          <span class="sidebar-menu-label">Export data</span>
-        </li>
-      </router-link>
-
       <router-link to="/addUser" custom v-slot="{ navigate }">
         <li :class="{'active': activeItem === 'addUser'}" @click="activateAndNavigate('addUser', navigate)" v-if="store.state.isLoggedIn">
           <span class="sidebar-menu-icon">

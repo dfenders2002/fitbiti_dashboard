@@ -3,37 +3,27 @@
   <div class="page">
     <div class="adduser addFitbit">
       <h1>Add Fitbit User</h1>
-      <form @submit.prevent="submitForm">
-        <label>
-          Fitbit ID:
-          <input class="textfield" type="text" v-model="fitbitId" placeholder="Type hier" />
-        </label>
+      <form @submit.prevent="addFitbit">
         <button class="submit" type="submit">Add Fitbit</button>
       </form>
     </div>
   </div>
 </template>
 
-  
-  <script lang="ts">
-  import { defineComponent } from 'vue';
-  import SideBar from '@/components/SideBar.vue';
-  
-  export default defineComponent({
+<script lang="ts">
+import { defineComponent } from 'vue';
+import SideBar from '@/components/SideBar.vue';
+
+export default defineComponent({
   components: { SideBar },
-    data() {
-      return {
-        fitbitId: '',
-      };
+  methods: {
+    addFitbit() {
+      window.location.href = 'https://localhost:7287/fitbit/auth';
     },
-    methods: {
-      submitForm() {
-        // Add logic to submit the form here
-        console.log('Adding Fitbit user...');
-      },
-    },
-  });
-  </script>
+  },
+});
+</script>
+
   
   <style scoped>
 .page {

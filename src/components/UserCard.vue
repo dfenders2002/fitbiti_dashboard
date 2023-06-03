@@ -4,9 +4,9 @@
     <div class="user-info">
       <h2 class="name">{{ user.pid }}</h2>
       <p class="text">Leeftijd: {{ user.age }}</p>
-      <p class="text">Lengte: {{ user.height }} cm</p>
-      <p class="text">Gewicht: {{ user.weight }} kg</p>
-      <p class="text">Ziekte: {{ user.disease }}</p>
+      <p class="text">Lengte: {{ user.heightCm }} cm</p>
+      <p class="text">Gewicht: {{ user.weightKg }} kg</p>
+      <p class="text">Ziekte: {{ user.diagnose }}</p>
       <p class="text">In behandeling: {{ user.intreatmentnow ? 'ja' : 'nee' }}</p>
     </div>
   </div>

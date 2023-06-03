@@ -86,7 +86,7 @@ export default {
             horizontal: false,
             borderRadius: 10,
             dataLabels: {
-              position: 'top',
+              position: 'center',
               maxItems: 2,
               hideOverflowingLabels: false,
               style: {
@@ -225,6 +225,12 @@ export default {
         this.updateChartSeries();
       },
     },
+    selectedWeek: {
+      immediate: true,
+      handler(value) {
+        this.updateXAxisLabels();
+      },
+    },
   },
   methods: {
     updateChartSeries() {
@@ -246,10 +252,29 @@ export default {
           data: [this.minMinutesDeepSleep, this.averageMinutesDeepSleep, this.maxMinutesDeepSleep],
         },
       ];
+
+      this.$nextTick(() => {
+        this.updateXAxisLabels();
+      });
     },
-    calculateTotal(data) {
-      return data.reduce((a, b) => a + b, 0);
-    }
+    updateXAxisLabels() {
+
+      const categories = ['Minimaal', 'Gemiddeld', 'Maximaal'];
+      const totals = [0, 0, 0];
+
+      this.chartSeries.forEach(series => {
+        series.data.forEach((value, index) => {
+          totals[index] += value;
+        });
+      });
+
+      categories.forEach((category, index) => {
+        categories[index] += ` (${(totals[index] / 60).toFixed(1)} uur)`;
+      });
+
+      this.chartOptions.xaxis.categories = categories;
+    },
+
   },
 };
 </script>

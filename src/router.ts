@@ -8,6 +8,7 @@ import Login from './views/Login.vue';
 import Export from './views/Export.vue'
 import AddFitbit from './views/AddFitBit.vue';
 import AddUser from './views/AddUser.vue';
+import EditFitBit from './views/EditFitBit.vue';
 
 
 const routes: RouteRecordRaw[] = [
@@ -28,19 +29,15 @@ const routes: RouteRecordRaw[] = [
     props: true,
   },
   {
-    path: '/export',
-    name: 'export',
-    component: Export,
-  },
-  {
-    path: '/addFitBit',
-    name: 'addFitbit',
-    component: AddFitbit,
-  },
-  {
     path: '/addUser',
     name: 'addUser',
     component: AddUser,
+  },
+  {
+    path: '/edit/:pid',
+    name: 'EditFitbit',
+    component: EditFitBit,
+    props: true,
   },
 ];
 
