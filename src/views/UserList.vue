@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="grid-container-users" :style="{ 'grid-template-columns': gridColumns }">
-      <UserCard v-for="user in displayedUsers" :key="user.pid" :user="user" @click="goToDashboard(user.pid)" />
+      <UserCard v-for="user in displayedUsers" :key="user.id" :user="user" @click="goToDashboard(user.id)" />
     </div>
     <div class="pagination">
       <button :disabled="currentPage === 1" class="pagination-button" @click="previousPage">Vorige</button>
@@ -44,11 +44,11 @@ import { saveAs } from 'file-saver';
 
 const router = useRouter();
 const dummyUsers = [
-  { pid: 'PID123456789', age: 23, heightCm: 175, weightKg: 69, diagnose: 'aids', inTreatment: true },
-  { pid: 'PID987654321', age: 28, heightCm: 175, weightKg: 62, diagnose: 'kanker', inTreatment: false },
-  { pid: 'PID456789123', age: 41, heightCm: 188, weightKg: 90, diagnose: 'ebola', inTreatment: false },
-  { pid: 'PID789123456', age: 36, heightCm: 163, weightKg: 55, diagnose: 'kanker', inTreatment: false },
-  { pid: 'PID111222333', age: 32, heightCm: 170, weightKg: 60, diagnose: 'diabetes', inTreatment: false },
+  {id: 1, pid: 'PID123456789', age: 23, heightCm: 175, weightKg: 69, diagnose: 'aids', inTreatment: true },
+  {id: 2,  pid: 'PID987654321', age: 28, heightCm: 175, weightKg: 62, diagnose: 'kanker', inTreatment: false },
+  {id: 3,  pid: 'PID456789123', age: 41, heightCm: 188, weightKg: 90, diagnose: 'ebola', inTreatment: false },
+  {id: 4,  pid: 'PID789123456', age: 36, heightCm: 163, weightKg: 55, diagnose: 'kanker', inTreatment: false },
+  {id: 5,  pid: 'PID111222333', age: 32, heightCm: 170, weightKg: 60, diagnose: 'diabetes', inTreatment: false },
 ];
 
 const users = ref([]);
@@ -117,8 +117,8 @@ function exportData() {
   });
 }
 
-function goToDashboard(pid: string) {
-  router.push({ name: 'Dashboard', params: { pid } });
+function goToDashboard(id: string) {
+  router.push({ name: 'Dashboard', params: { id } });
 }
 
 const userCount = computed(() => {

@@ -84,8 +84,8 @@ const currentWeek = 23; // Huidige week
 const selectedWeek = ref(currentWeek);
 
 const user = computed(() => {
-  const pid = route.params.pid;
-  return props.users.find((user) => user.pid === pid);
+  const id = Number(route.params.id);
+  return props.users.find((user) => user.id === id);
 });
 
 const selectedFitbitWeek = computed(() => {
