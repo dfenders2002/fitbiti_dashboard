@@ -1,8 +1,14 @@
 <template>
-    <side-bar></side-bar>
-    <div class="page">
-      <div class="edit-user">
-        <h1>Bewerk Fitbit gebruiker</h1>
+  <side-bar></side-bar>
+  <div class="page">
+    <div class="edit-user">
+      <div class="edit-user-box">
+        <div class="header">
+          <h1>Bewerk Fitbit gebruiker</h1>
+          <button class="delete-btn" @click.prevent="deleteUser">
+            <font-awesome-icon icon="trash" />
+          </button>
+        </div>
         <form @submit.prevent="submitForm">
           <div class="edit">
             <label>
@@ -24,51 +30,73 @@
         </form>
       </div>
     </div>
-  </template>
-  
-  <script lang="ts">
-  import { defineComponent } from 'vue';
-  import SideBar from '@/components/SideBar.vue';
-  
-  export default defineComponent({
-    components: { SideBar },
-    data() {
-      return {
-        pid: '',
-        diagnose: '',
-        inBehandeling: false,
-      };
-    },
-    methods: {
-      submitForm() {
-        const url = window.location.href;
-        const id = url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('#'));
-  
-        // Make a PUT request to update the Fitbit user
-        fetch(`https://localhost:7287/fitbit/${id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            id: id,
-            pid: this.pid,
-            diagnose: this.diagnose,
-            inTreatment: this.inBehandeling
-          }),
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+import SideBar from '@/components/SideBar.vue';
+
+export default defineComponent({
+  components: { SideBar },
+  data() {
+    return {
+      pid: '',
+      diagnose: '',
+      inBehandeling: false,
+    };
+  },
+  created() {
+    this.pid = this.$route.query.pid || '';
+    this.diagnose = this.$route.query.diagnose || '';
+    this.inBehandeling = this.$route.query.inBehandeling === 'true' || false;
+  },
+  methods: {
+    submitForm() {
+      const id = this.$route.params.id;
+      // Maak een PUT-verzoek om de Fitbit-gebruiker bij te werken
+      fetch(`https://localhost:7287/fitbit/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: id,
+          pid: this.pid,
+          diagnose: this.diagnose,
+          inTreatment: this.inBehandeling,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('User updated:', data);
+          window.location.href = 'http://127.0.0.1:5173/dashboard';
         })
-          .then(response => response.json())
-          .then(data => {
-            console.log('User updated:', data);
-            window.location.href = 'http://127.0.0.1:5173/dashboard';
-          })
-          .catch(error => {
-            console.log('Error:', error);
-          });
-      },
+        .catch((error) => {
+          console.log('Error:', error);
+        });
     },
-  });
-  </script>
+    deleteUser() {
+      const id = this.$route.params.id;
+      fetch(`https://localhost:7287/fitbit/${id}`, {
+        method: 'DELETE',
+      })
+        .then((response) => {
+          if (response.ok) {
+            console.log('User deleted');
+            window.location.href = 'http://127.0.0.1:5173/dashboard';
+          } else {
+            throw new Error('Failed to delete user');
+          }
+        })
+        .catch((error) => {
+          console.log('Error:', error);
+        });
+    },
+  },
+});
+</script>
+
   
   
   <style scoped>
@@ -91,6 +119,22 @@
     padding-top: 10rem;
     background-color: #121528;
     color: white;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .delete-btn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-top: 0;
   }
   
   .label-text {
@@ -130,7 +174,7 @@
   }
   
   h1 {
-    margin-bottom: 1rem;
+    margin-bottom: 0;
   }
   
   span {
@@ -165,24 +209,6 @@
     margin-top: 1rem;
     height: 50px;
     font-size: 22px;
-  }
-  
-  .error input {
-    border-color: red;
-  }
-  
-  .error-message {
-    color: red;
-  }
-  
-  .error-border {
-    border-color: red;
-  }
-  
-  .success-message {
-    padding-top: 20px;
-    font-size: 22px;
-    color: green;
   }
   </style>
   

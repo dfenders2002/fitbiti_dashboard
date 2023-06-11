@@ -5,10 +5,10 @@
       <div class="dashboard-header">
         <p class="dashboard-text">{{ user.pid }}</p>
         <p class="dashboard-text">{{ user.age }} jaar</p>
-        <p class="dashboard-text">{{ user.height }} cm</p>
-        <p class="dashboard-text">{{ user.weight }} kg</p>
-        <p class="dashboard-text">Ziekte: {{ user.disease }}</p>
-        <p class="dashboard-text">In behandeling: {{ user.intreatmentnow ? 'ja' : 'nee' }}</p>
+        <p class="dashboard-text">{{ user.heightCm }} cm</p>
+        <p class="dashboard-text">{{ user.weightKg }} kg</p>
+        <p class="dashboard-text">Ziekte: {{ user.diagnose }}</p>
+        <p class="dashboard-text">In behandeling: {{ user.inTreatment ? 'ja' : 'nee' }}</p>
         <button class="dashboard-back-button" @click="goToUserList">Go Back</button>
       </div>
       <h1 class="week-view-header">Week {{ selectedWeek }} - week gemiddelde</h1>
@@ -61,7 +61,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import StepsCard from '../components/StepsCard.vue';
 import CaloriesCard from '../components/CaloriesCard.vue';
@@ -83,10 +83,40 @@ const router = useRouter();
 const currentWeek = 23; // Huidige week
 const selectedWeek = ref(currentWeek);
 
+
+
 const user = computed(() => {
   const id = Number(route.params.id);
   return props.users.find((user) => user.id === id);
 });
+
+
+
+async function fetchActivityData(id) {
+  const response = await fetch(`https://localhost:7287/fitbit/${id}/activity`, {
+    headers: {
+      accept: 'text/plain',
+    },
+  });
+  if (!response.ok) {
+    console.error('Failed fetching activity data');
+    return;
+  }
+  const activityData = await response.json();
+}
+
+async function fetchSleepData(id) {
+  const response = await fetch(`https://localhost:7287/fitbit/${id}/sleep`, {
+    headers: {
+      accept: 'text/plain',
+    },
+  });
+  if (!response.ok) {
+    console.error('Failed fetching sleep data');
+    return;
+  }
+  const sleepData = await response.json();
+}
 
 const selectedFitbitWeek = computed(() => {
   const selectedWeekKey = `week_${selectedWeek.value}`;
@@ -120,6 +150,13 @@ function selectNextWeek() {
     selectedWeek.value++;
   }
 }
+
+onMounted(() => {
+  const userId = Number(route.params.id);
+  fetchActivityData(userId);
+  fetchSleepData(userId);
+});
+
 </script>
 
 

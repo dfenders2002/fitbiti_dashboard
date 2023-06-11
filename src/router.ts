@@ -34,7 +34,7 @@ const routes: RouteRecordRaw[] = [
     component: AddUser,
   },
   {
-    path: '/edit/:pid',
+    path: '/edit/:id',
     name: 'EditFitbit',
     component: EditFitBit,
     props: true,

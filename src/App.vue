@@ -13,16 +13,6 @@ import { useStore } from './store/store';
 
 const store = useStore();
 const isLoggedIn = ref(store.state.isLoggedIn);
-const dummyUsers = [
-  {id: 1, pid: 'PID123456789', age: 23, heightCm: 175, weightKg: 69, diagnose: 'aids', inTreatment: true },
-  {id: 2, pid: 'PID987654321', age: 28, heightCm: 175, weightKg: 62, diagnose: 'kanker', inTreatment: false },
-  {id: 3, pid: 'PID456789123', age: 41, heightCm: 188, weightKg: 90, diagnose: 'ebola', inTreatment: false },
-  {id: 4, pid: 'PID789123456', age: 36, heightCm: 163, weightKg: 55, diagnose: 'kanker', inTreatment: false },
-  {id: 5, pid: 'PID111222333', age: 32, heightCm: 170, weightKg: 60, diagnose: 'diabetes', inTreatment: false },
-
-  // add more users here...
-];
-
 const users = ref([]);
 const fetchFitbitUsers = async () => {
   try {
@@ -35,7 +25,7 @@ const fetchFitbitUsers = async () => {
       const ageDate = new Date(ageDiff); 
       user.age = Math.abs(ageDate.getUTCFullYear() - 1970); 
     });
-    users.value = [...dummyUsers, ...data]; 
+    users.value = data; 
   } catch (error) {
     console.log('Error fetching Fitbit users:', error);
   }

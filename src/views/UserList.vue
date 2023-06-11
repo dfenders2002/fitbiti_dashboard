@@ -43,13 +43,6 @@ import SideBar from '@/components/SideBar.vue';
 import { saveAs } from 'file-saver';
 
 const router = useRouter();
-const dummyUsers = [
-  {id: 1, pid: 'PID123456789', age: 23, heightCm: 175, weightKg: 69, diagnose: 'aids', inTreatment: true },
-  {id: 2,  pid: 'PID987654321', age: 28, heightCm: 175, weightKg: 62, diagnose: 'kanker', inTreatment: false },
-  {id: 3,  pid: 'PID456789123', age: 41, heightCm: 188, weightKg: 90, diagnose: 'ebola', inTreatment: false },
-  {id: 4,  pid: 'PID789123456', age: 36, heightCm: 163, weightKg: 55, diagnose: 'kanker', inTreatment: false },
-  {id: 5,  pid: 'PID111222333', age: 32, heightCm: 170, weightKg: 60, diagnose: 'diabetes', inTreatment: false },
-];
 
 const users = ref([]);
 const realUsers = ref([]);
@@ -65,11 +58,12 @@ const fetchFitbitUsers = async () => {
       user.age = Math.abs(ageDate.getUTCFullYear() - 1970); 
     });
     realUsers.value = data;
-    users.value = [...dummyUsers, ...data]; // Samenvoegen van dummygebruikers en opgehaalde gebruikers
+    users.value = data; // Samenvoegen van dummygebruikers en opgehaalde gebruikers
   } catch (error) {
     console.log('Error fetching Fitbit users:', error);
   }
 };
+
 
 onMounted(() => {
   fetchFitbitUsers();
@@ -81,41 +75,35 @@ function addFitbit() {
   window.location.href = 'https://localhost:7287/fitbit/auth';
 }
 
-function exportData() {
-  // Maak een nieuw array voor de gebruikersdata
-  const userData = [];
+async function exportData() {
+  try {
+    const response = await fetch('https://localhost:7287/fitbit/export');
+    const jsonData = await response.json();
+    const jsonString = JSON.stringify(jsonData);
 
-  // Loop door de echte gebruikers en haal de activiteitsgegevens op
-  realUsers.value.forEach(async (user) => {
-    try {
-      const activityResponse = await fetch(`https://localhost:7287/fitbit/${user.id}/activity`);
-      const activityData = await activityResponse.json();
-      const sleepResponse = await fetch(`https://localhost:7287/fitbit/${user.id}/sleep`);
-      const sleepData = await sleepResponse.json();
-      // Voeg de gegevens toe aan het userData array
-      userData.push({
-        id: user.id,
-        pid: user.pid,
-        activityData: activityData,
-        sleepData: sleepData
-      });
-      
-      // Controleer of alle gebruikers zijn verwerkt
-      if (userData.length === realUsers.value.length) {
-        // Maak een JSON-string van de userData
-        const jsonData = JSON.stringify(userData, null, 2);
-        
-        // Maak een nieuw Blob-object van de JSON-string
-        const blob = new Blob([jsonData], { type: 'application/json' });
-        
-        // Download het bestand met behulp van de FileSaver.js library
-        saveAs(blob, 'user_data.json');
-      }
-    } catch (error) {
-      console.log(`Error fetching activity data for user ${user.id}:`, error);
-    }
-  });
+    const fileName = getFileNameFromHeaders(response.headers);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.download = fileName;
+    downloadLink.click();
+  } catch (error) {
+    console.error('Fout bij het exporteren van gegevens:', error);
+  }
 }
+
+function getFileNameFromHeaders(headers) {
+  const contentDispositionHeader = headers.get('Content-Disposition');
+  if (contentDispositionHeader) {
+    const match = contentDispositionHeader.match(/filename="(.+)"/);
+    if (match && match[1]) {
+      return match[1];
+    }
+  }
+  return 'exported_data.json';
+}
+
 
 function goToDashboard(id: string) {
   router.push({ name: 'Dashboard', params: { id } });
@@ -141,12 +129,28 @@ const gridColumns = computed(() => {
   return `repeat(${columns}, 1fr)`;
 });
 
+const treatmentFilter = ref(['all']); // Standrard filter op 'alle'
+
 const filteredUsers = computed(() => {
   return users.value.filter((user) => {
     const search = searchTerm.value.toLowerCase();
-    const pidMatch = user.pid.toLowerCase().includes(search);
-    const diagnoseMatch = user.diagnose.toLowerCase().includes(search);
-    return pidMatch || diagnoseMatch;
+    var  pidMatch = ''
+    var diagnoseMatch = ''
+    var treatmentMatch = false
+    if(user.pid != null ){
+      pidMatch = user.pid.toLowerCase().includes(search);
+    }
+    if(user.diagnose != null){
+      diagnoseMatch = user.diagnose.toLowerCase().includes(search);
+    }
+    if (treatmentFilter.value.includes('all')) {
+      treatmentMatch = true;
+    } else if (treatmentFilter.value.includes('inTreatment') && user.inTreatment) {
+      treatmentMatch = true;
+    } else if (treatmentFilter.value.includes('notInTreatment') && !user.inTreatment) {
+      treatmentMatch = true;
+    }
+    return (pidMatch || diagnoseMatch) && treatmentMatch;
   });
 });
 
@@ -163,6 +167,8 @@ function nextPage() {
 function previousPage() {
   currentPage.value--;
 }
+
+
 </script>
 
 
@@ -227,6 +233,23 @@ function previousPage() {
   align-items: center;
   margin-top: 1rem;
 }
+
+.treatment-filter {
+  display: flex;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.treatment-filter div {
+  margin-right: 10px;
+  color: white;
+  font-size: 20px;
+}
+
+.treatment-filter input[type=checkbox] {
+  margin-right: 5px;
+}
+
 
 .pagination button {
   background-color: #2d363d;
