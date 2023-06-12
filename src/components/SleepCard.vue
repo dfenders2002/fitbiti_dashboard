@@ -18,7 +18,7 @@ export default {
     apexchart: VueApexCharts,
   },
   props: {
-    averageMinutesAwake: {
+    avgMinutesAwake: {
       type: Number,
       required: true,
     },
@@ -30,39 +30,15 @@ export default {
       type: Number,
       required: true,
     },
-    averageMinutesREMSleep: {
+    avgMinutesAsleep: {
       type: Number,
       required: true,
     },
-    maxMinutesREMSleep: {
+    maxMinutesAsleep: {
       type: Number,
       required: true,
     },
-    minMinutesREMSleep: {
-      type: Number,
-      required: true,
-    },
-    averageMinutesLightSleep: {
-      type: Number,
-      required: true,
-    },
-    maxMinutesLightSleep: {
-      type: Number,
-      required: true,
-    },
-    minMinutesLightSleep: {
-      type: Number,
-      required: true,
-    },
-    averageMinutesDeepSleep: {
-      type: Number,
-      required: true,
-    },
-    maxMinutesDeepSleep: {
-      type: Number,
-      required: true,
-    },
-    minMinutesDeepSleep: {
+    minMinutesAsleep: {
       type: Number,
       required: true,
     },
@@ -153,7 +129,7 @@ export default {
     };
   },
   watch: {
-    averageMinutesAwake: {
+    avgMinutesAwake: {
       immediate: true,
       handler(value) {
         this.updateChartSeries();
@@ -171,55 +147,19 @@ export default {
         this.updateChartSeries();
       },
     },
-    averageMinutesREMSleep: {
+    avgMinutesAsleep: {
       immediate: true,
       handler(value) {
         this.updateChartSeries();
       },
     },
-    maxMinutesREMSleep: {
+    maxMinutesAsleep: {
       immediate: true,
       handler(value) {
         this.updateChartSeries();
       },
     },
-    minMinutesREMSleep: {
-      immediate: true,
-      handler(value) {
-        this.updateChartSeries();
-      },
-    },
-    averageMinutesLightSleep: {
-      immediate: true,
-      handler(value) {
-        this.updateChartSeries();
-      },
-    },
-    maxMinutesLightSleep: {
-      immediate: true,
-      handler(value) {
-        this.updateChartSeries();
-      },
-    },
-    minMinutesLightSleep: {
-      immediate: true,
-      handler(value) {
-        this.updateChartSeries();
-      },
-    },
-    averageMinutesDeepSleep: {
-      immediate: true,
-      handler(value) {
-        this.updateChartSeries();
-      },
-    },
-    maxMinutesDeepSleep: {
-      immediate: true,
-      handler(value) {
-        this.updateChartSeries();
-      },
-    },
-    minMinutesDeepSleep: {
+    minMinutesAsleep: {
       immediate: true,
       handler(value) {
         this.updateChartSeries();
@@ -237,19 +177,11 @@ export default {
       this.chartSeries = [
         {
           name: 'Minuten wakker',
-          data: [this.minMinutesAwake, this.averageMinutesAwake, this.maxMinutesAwake],
+          data: [this.minMinutesAwake, this.avgMinutesAwake, this.maxMinutesAwake],
         },
         {
-          name: 'Minuten REM slaap',
-          data: [this.minMinutesREMSleep, this.averageMinutesREMSleep, this.maxMinutesREMSleep],
-        },
-        {
-          name: 'Minuten lichte slaap',
-          data: [this.minMinutesLightSleep, this.averageMinutesLightSleep, this.maxMinutesLightSleep],
-        },
-        {
-          name: 'Minuten diepe slaap',
-          data: [this.minMinutesDeepSleep, this.averageMinutesDeepSleep, this.maxMinutesDeepSleep],
+          name: 'Minuten slaap',
+          data: [this.minMinutesAsleep, this.avgMinutesAsleep, this.maxMinutesAsleep],
         },
       ];
 
@@ -258,7 +190,6 @@ export default {
       });
     },
     updateXAxisLabels() {
-
       const categories = ['Minimaal', 'Gemiddeld', 'Maximaal'];
       const totals = [0, 0, 0];
 
@@ -274,10 +205,10 @@ export default {
 
       this.chartOptions.xaxis.categories = categories;
     },
-
   },
 };
 </script>
+
 
 
   <style>

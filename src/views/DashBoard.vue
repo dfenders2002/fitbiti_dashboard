@@ -18,22 +18,21 @@
       </div>
       <div class="grid-container-data">
         <StepsCard
-          :averageSteps="selectedFitbitWeek.AverageSteps"
-          :maxSteps="selectedFitbitWeek.MaxSteps"
-          :minSteps="selectedFitbitWeek.MinSteps"
+          :averageSteps="0"
+          :maxSteps="0"
+          :minSteps="0"
         />
         <CaloriesCard
-          :averageCalories="selectedFitbitWeek.AverageCalories"
-          :maxCalories="selectedFitbitWeek.MaxCalories"
-          :minCalories="selectedFitbitWeek.MinCalories"
+          :averageCalories="0"
+          :maxCalories="0"
+          :minCalories="0"
         />
         <DistanceTraveldCard
-          :averageDistance="selectedFitbitWeek.AverageDistance"
-          :maxDistance="selectedFitbitWeek.MaxDistance"
-          :minDistance="selectedFitbitWeek.MinDistance"
+          :averageDistance="0"
+          :maxDistance="0"
+          :minDistance="0"
         />
       </div>
-
       <div class="grid-container-3">
         <HeartBeatCard
           :averageHeartRateInRest="selectedFitbitWeek.averageHeartRateInRest"
@@ -41,20 +40,13 @@
           :minHeartRateInRest="selectedFitbitWeek.minHeartRateInRest"
         />
         <SleepCard
-          :averageMinutesAwake="selectedFitbitWeek.AverageMinutesAwake"
-          :maxMinutesAwake="selectedFitbitWeek.MaxMinutesAwake"
-          :minMinutesAwake="selectedFitbitWeek.MinMinutesAwake"
-          :averageMinutesREMSleep="selectedFitbitWeek.AverageMinutesREMSleep"
-          :maxMinutesREMSleep="selectedFitbitWeek.MaxMinutesREMSleep"
-          :minMinutesREMSleep="selectedFitbitWeek.MinMinutesREMSleep"
-          :averageMinutesLightSleep="selectedFitbitWeek.AverageMinutesLightSleep"
-          :maxMinutesLightSleep="selectedFitbitWeek.MaxMinutesLightSleep"
-          :minMinutesLightSleep="selectedFitbitWeek.MinMinutesLightSleep"
-          :averageMinutesDeepSleep="selectedFitbitWeek.AverageMinutesDeepSleep"
-          :maxMinutesDeepSleep="selectedFitbitWeek.MaxMinutesDeepSleep"
-          :minMinutesDeepSleep="selectedFitbitWeek.MinMinutesDeepSleep"
+          :avgMinutesAwake="769"
+          :maxMinutesAwake="125"
+          :minMinutesAwake="40"
+          :minMinutesAsleep="225"
+          :avgMinutesAsleep="410"
+          :maxMinutesAsleep="520"
         />
-
       </div>
     </div>
   </div>
@@ -80,24 +72,21 @@ const props = defineProps({
 
 const route = useRoute();
 const router = useRouter();
-const currentWeek = 23; // Huidige week
+const currentWeek = 23;
 const selectedWeek = ref(currentWeek);
-
-
 
 const user = computed(() => {
   const id = Number(route.params.id);
   return props.users.find((user) => user.id === id);
 });
 
-
-
 async function fetchActivityData(id) {
-  const response = await fetch(`https://localhost:7287/fitbit/${id}/activity`, {
+  const response = await fetch(`https://localhost:7287/fitbit/${id}/weekly-activity`, {
     headers: {
       accept: 'text/plain',
     },
   });
+  debugger
   if (!response.ok) {
     console.error('Failed fetching activity data');
     return;
