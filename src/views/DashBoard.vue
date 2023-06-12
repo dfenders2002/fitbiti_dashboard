@@ -11,17 +11,19 @@
         <p class="dashboard-text">In behandeling: {{ user.inTreatment ? 'ja' : 'nee' }}</p>
         <button class="dashboard-back-button" @click="goToUserList">Go Back</button>
       </div>
-      <h1 class="week-view-header">Week {{ selectedWeek }} - week gemiddelde</h1>
+      <h1 class="week-view-header">Week {{ selectedWeek }} - {{ startDate }} - {{ endDate }}</h1>
       <div class="week-view">
         <button class="week-button" @click="selectPreviousWeek">Vorige Week</button>
-        <button class="week-button" @click="selectNextWeek" :disabled="selectedWeek >= currentWeek">Volgende Week</button>
+        <!-- Notice the change in the disabling condition below -->
+        <button class="week-button" @click="selectNextWeek" :disabled="selectedWeek >= currentWeek - 1">Volgende Week</button>
       </div>
       <div class="grid-container-data">
         <StepsCard
-          :averageSteps="0"
-          :maxSteps="0"
-          :minSteps="0"
+          :averageSteps="selectedWeekData ? selectedWeekData.weekNumber : 0"
+          :maxSteps="selectedWeekData ? selectedWeekData.weekNumber : 0"
+          :minSteps="selectedWeekData ? selectedWeekData.weekNumber : 0"
         />
+
         <CaloriesCard
           :averageCalories="0"
           :maxCalories="0"
@@ -35,9 +37,9 @@
       </div>
       <div class="grid-container-3">
         <HeartBeatCard
-          :averageHeartRateInRest="selectedFitbitWeek.averageHeartRateInRest"
-          :maxHeartRateInRest="selectedFitbitWeek.maxHeartRateInRest"
-          :minHeartRateInRest="selectedFitbitWeek.minHeartRateInRest"
+          :averageHeartRateInRest="0"
+          :maxHeartRateInRest="0"
+          :minHeartRateInRest="0"
         />
         <SleepCard
           :avgMinutesAwake="769"
@@ -52,7 +54,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, computed, watch, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import StepsCard from '../components/StepsCard.vue';
@@ -61,7 +63,6 @@ import DistanceTraveldCard from '../components/DistanceTraveledCard.vue'
 import HeartBeatCard from '../components/HeartBeatCard.vue';
 import SleepCard from '../components/SleepCard.vue';
 import SideBar from '../components/SideBar.vue';
-import fitbitWeek from '../data/fitbitWeek.json';
 
 const props = defineProps({
   users: {
@@ -72,8 +73,14 @@ const props = defineProps({
 
 const route = useRoute();
 const router = useRouter();
-const currentWeek = 23;
-const selectedWeek = ref(currentWeek);
+const activityData = ref([]);
+
+const currentDate = new Date();
+const firstDayOfYear = new Date(currentDate.getFullYear(), 0, 1);
+const pastDaysOfYear = (currentDate - firstDayOfYear) / 86400000;
+const currentWeek = Math.ceil((pastDaysOfYear + firstDayOfYear.getDay()) / 7);
+
+const selectedWeek = ref(currentWeek - 1);
 
 const user = computed(() => {
   const id = Number(route.params.id);
@@ -86,16 +93,15 @@ async function fetchActivityData(id) {
       accept: 'text/plain',
     },
   });
-  debugger
   if (!response.ok) {
     console.error('Failed fetching activity data');
     return;
   }
-  const activityData = await response.json();
+  activityData.value = await response.json(); // Store fetched data in the activityData ref
 }
 
 async function fetchSleepData(id) {
-  const response = await fetch(`https://localhost:7287/fitbit/${id}/sleep`, {
+  const response = await fetch(`https://localhost:7287/fitbit/${id}/weekly-sleep`, {
     headers: {
       accept: 'text/plain',
     },
@@ -106,23 +112,6 @@ async function fetchSleepData(id) {
   }
   const sleepData = await response.json();
 }
-
-const selectedFitbitWeek = computed(() => {
-  const selectedWeekKey = `week_${selectedWeek.value}`;
-  const weekData = fitbitWeek[selectedWeekKey] || {};
-  return {
-    ...weekData,
-    averageHeartRateInRest: weekData.averageHeartRateInRest || 0,
-    maxHeartRateInRest: weekData.maxHeartRateInRest || 0,
-    minHeartRateInRest: weekData.minHeartRateInRest || 0,
-  };
-});
-
-watch(selectedWeek, () => {
-  const selectedWeekKey = `week_${selectedWeek.value}`;
-  const newFitbitWeek = fitbitWeek[selectedWeekKey] || {};
-  Object.assign(selectedFitbitWeek, newFitbitWeek);
-});
 
 function goToUserList() {
   router.push({ name: 'UserList' });
@@ -145,6 +134,37 @@ onMounted(() => {
   fetchActivityData(userId);
   fetchSleepData(userId);
 });
+
+const selectedWeekData = computed(() => {
+  const weekData = activityData.value.find(data => data.weekNumber === selectedWeek.value);
+  return weekData ? weekData : null;
+});
+
+const getWeekStartAndEndDate = (weekNumber, year) => {
+  const simple = new Date(year, 0, 1 + (weekNumber - 1) * 7);
+  const dow = simple.getDay();
+  const weekStart = new Date(simple);
+  if (dow <= 4)
+    weekStart.setDate(simple.getDate() - simple.getDay() + 1); // adjust to previous Monday
+  else
+    weekStart.setDate(simple.getDate() + 8 - simple.getDay()); // adjust to next Monday
+  const weekEnd = new Date(weekStart);
+  weekEnd.setDate(weekStart.getDate() + 6);
+  return { weekStart, weekEnd };
+};
+
+
+const startDate = computed(() => {
+  const { weekStart } = getWeekStartAndEndDate(selectedWeek.value, currentDate.getFullYear());
+  return weekStart.toLocaleDateString();
+});
+
+const endDate = computed(() => {
+  const { weekEnd } = getWeekStartAndEndDate(selectedWeek.value, currentDate.getFullYear());
+  return weekEnd.toLocaleDateString();
+});
+
+
 
 </script>
 

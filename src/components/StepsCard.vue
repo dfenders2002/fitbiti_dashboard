@@ -91,6 +91,7 @@ export default {
       },
     };
   },
+  // In StepsCard component
   watch: {
     averageSteps: {
       handler(newVal) {
