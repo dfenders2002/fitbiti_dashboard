@@ -76,7 +76,7 @@ export default {
             },
           },
         },
-        colors: ['#00E396', '#feb019', '#FF4560'],// ['#ca6702', '#bb3e03', '#ae2012'],
+        colors: ['#FF4560', '#feb019', '#00E396'],
         tooltip: {
           theme: 'dark',
           y: {

@@ -42,6 +42,10 @@ export default {
       type: Number,
       required: true,
     },
+    selectedWeek: {
+      type: Number,
+      required: true,
+    },
   },
   data() {
     return {
@@ -176,12 +180,12 @@ export default {
     updateChartSeries() {
       this.chartSeries = [
         {
-          name: 'Minuten wakker',
-          data: [this.minMinutesAwake, this.avgMinutesAwake, this.maxMinutesAwake],
-        },
-        {
           name: 'Minuten slaap',
           data: [this.minMinutesAsleep, this.avgMinutesAsleep, this.maxMinutesAsleep],
+        },
+        {
+          name: 'Minuten wakker',
+          data: [this.minMinutesAwake, this.avgMinutesAwake, this.maxMinutesAwake],
         },
       ];
 

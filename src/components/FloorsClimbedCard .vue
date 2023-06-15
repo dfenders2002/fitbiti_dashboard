@@ -1,7 +1,7 @@
 <template>
-  <div class="distance-card">
-    <div class="distance-title">Afstand afgelegd</div>
-    <div class="distance-chart-container">
+  <div class="floors-card">
+    <div class="floors-title">Aantal verdiepingen</div>
+    <div class="floors-chart-container">
       <apexchart type="bar" height="240" :options="chartOptions" :series="chartSeries" />
     </div>
   </div>
@@ -11,20 +11,20 @@
 import VueApexCharts from 'vue3-apexcharts';
 
 export default {
-  name: 'DistanceTraveldCard',
+  name: 'FloorsClimbedCard',
   components: {
     apexchart: VueApexCharts,
   },
   props: {
-    averageDistance: {
+    averageFloors: {
       type: Number,
       required: true,
     },
-    maxDistance: {
+    maxFloors: {
       type: Number,
       required: true,
     },
-    minDistance: {
+    minFloors: {
       type: Number,
       required: true,
     },
@@ -34,15 +34,15 @@ export default {
       chartSeries: [
         {
           name: 'Minimaal',
-          data: [this.minDistance],
+          data: [this.minFloors],
         },
         {
           name: 'Gemiddeld',
-          data: [this.averageDistance],
+          data: [this.averageFloors],
         },
         {
           name: 'Maximaal',
-          data: [this.maxDistance],
+          data: [this.maxFloors],
         },
       ],
       chartOptions: {
@@ -72,16 +72,16 @@ export default {
               fontWeight: 0,
             },
             formatter: function (value) {
-              return value + ' km';
+              return value + ' verdiepingen';
             },
           },
         },
-        colors: ['#00E396', '#feb019', '#FF4560'],//['#52b788', '#40916c', '#2d6a4f'],
+        colors: ['#FF4560', '#feb019', '#00E396'],
         tooltip: {
           theme: 'dark',
           y: {
             formatter: function (val) {
-              return val + ' km';
+              return val + ' verdiepingen';
             },
           },
         },
@@ -95,19 +95,19 @@ export default {
     };
   },
   watch: {
-    averageDistance: {
+    averageFloors: {
       handler(newVal) {
         this.chartSeries[1].data = [newVal];
       },
       immediate: true,
     },
-    maxDistance: {
+    maxFloors: {
       handler(newVal) {
         this.chartSeries[2].data = [newVal];
       },
       immediate: true,
     },
-    minDistance: {
+    minFloors: {
       handler(newVal) {
         this.chartSeries[0].data = [newVal];
       },
@@ -118,7 +118,7 @@ export default {
 </script>
 
 <style scoped>
-.distance-card {
+.floors-card {
   background-color: #2d363d;
   border-radius: 10px;
   padding: 20px;
@@ -130,14 +130,14 @@ export default {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.distance-title {
+.floors-title {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
   color: white;
 }
 
-.distance-chart-container {
+.floors-chart-container {
   width: 100%;
   height: 300px;
 }
